@@ -3,11 +3,7 @@ package com.spring.frindfinder.model;
 import javax.persistence.*;
 
 @Entity(name = "friends")
-public class Friend {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+public class Friend extends BaseEntity {
 
     @Column(name = "friend-id")
     private int idFriend;

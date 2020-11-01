@@ -3,12 +3,8 @@ package com.spring.frindfinder.model;
 import javax.persistence.*;
 
 @Entity(name = "posts")
-public class Post {
+public class Post extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
 
     @Column(name = "image_path")
     private String image;
