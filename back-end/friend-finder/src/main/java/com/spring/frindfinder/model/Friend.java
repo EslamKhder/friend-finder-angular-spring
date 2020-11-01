@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity(name = "friends")
 public class Friend extends BaseEntity {
 
-    @Column(name = "friend-id")
+    @Column(name = "friend_id")
     private int idFriend;
 
     @ManyToOne
