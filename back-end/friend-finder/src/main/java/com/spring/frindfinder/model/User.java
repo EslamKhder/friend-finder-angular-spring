@@ -2,11 +2,16 @@ package com.spring.frindfinder.model;
 
 
 import com.spring.frindfinder.model.enums.Gender;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "user")
 public class User extends BaseEntity {
 
