@@ -5,6 +5,10 @@ import { HeaderComponent } from './componants/header/header.component';
 import { FooterComponent } from './componants/footer/footer.component';
 import { SignUpComponent } from './componants/sign-up/sign-up.component';
 import { ContactComponent } from './componants/contact/contact.component';
+import { UserhomeComponent } from './componants/userhome/userhome.component';
+import { LeftBarComponent } from './componants/userhome/left-bar/left-bar.component';
+import { RightBarComponent } from './componants/userhome/right-bar/right-bar.component';
+import { PublishComponent } from './componants/userhome/publish/publish.component';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,11 @@ import { ContactComponent } from './componants/contact/contact.component';
     HeaderComponent,
     FooterComponent,
     SignUpComponent,
-    ContactComponent
+    ContactComponent,
+    UserhomeComponent,
+    LeftBarComponent,
+    RightBarComponent,
+    PublishComponent
   ],
   imports: [
     BrowserModule
