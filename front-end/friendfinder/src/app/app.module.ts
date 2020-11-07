@@ -9,6 +9,9 @@ import { UserhomeComponent } from './componants/userhome/userhome.component';
 import { LeftBarComponent } from './componants/userhome/left-bar/left-bar.component';
 import { RightBarComponent } from './componants/userhome/right-bar/right-bar.component';
 import { PublishComponent } from './componants/userhome/publish/publish.component';
+import { FriendsComponent } from './componants/userhome/friends/friends.component';
+import { CoolImagesComponent } from './componants/userhome/cool-images/cool-images.component';
+import { MainPageComponent } from './componants/userhome/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { PublishComponent } from './componants/userhome/publish/publish.componen
     UserhomeComponent,
     LeftBarComponent,
     RightBarComponent,
-    PublishComponent
+    PublishComponent,
+    FriendsComponent,
+    CoolImagesComponent,
+    MainPageComponent,
   ],
   imports: [
     BrowserModule
