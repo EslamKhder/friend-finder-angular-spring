@@ -12,6 +12,13 @@ import { PublishComponent } from './componants/userhome/publish/publish.componen
 import { FriendsComponent } from './componants/userhome/friends/friends.component';
 import { CoolImagesComponent } from './componants/userhome/cool-images/cool-images.component';
 import { MainPageComponent } from './componants/userhome/main-page/main-page.component';
+import { TimeLinesComponent } from './componants/time-lines/time-lines.component';
+import { TimeLineComponent } from './componants/time-lines/time-line/time-line.component';
+import { TimeAboutComponent } from './componants/time-lines/time-about/time-about.component';
+import { TimeAlbumComponent } from './componants/time-lines/time-album/time-album.component';
+import { TimeFriendsComponent } from './componants/time-lines/time-friends/time-friends.component';
+import { TimeLineProfileComponent } from './componants/time-lines/time-line-profile/time-line-profile.component';
+import { TimeLineDetailesComponent } from './componants/time-lines/time-line-detailes/time-line-detailes.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +34,13 @@ import { MainPageComponent } from './componants/userhome/main-page/main-page.com
     FriendsComponent,
     CoolImagesComponent,
     MainPageComponent,
+    TimeLinesComponent,
+    TimeLineComponent,
+    TimeAboutComponent,
+    TimeAlbumComponent,
+    TimeFriendsComponent,
+    TimeLineProfileComponent,
+    TimeLineDetailesComponent,
   ],
   imports: [
     BrowserModule
