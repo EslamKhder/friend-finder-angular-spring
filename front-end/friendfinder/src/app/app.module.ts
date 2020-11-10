@@ -27,9 +27,9 @@ const routes: Routes = [
   {path: 'mainpage', component: MainPageComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'timeline', component: TimeLineComponent},
-  {path: 'time-line-about', component: TimeAboutComponent},
-  {path: 'time-line-friends', component: TimeFriendsComponent},
-  {path: 'time-line-album', component: TimeAlbumComponent},
+  {path: 'timeline-about', component: TimeAboutComponent},
+  {path: 'timeline-friends', component: TimeFriendsComponent},
+  {path: 'timeline-album', component: TimeAlbumComponent},
 ];
 
 @NgModule({
