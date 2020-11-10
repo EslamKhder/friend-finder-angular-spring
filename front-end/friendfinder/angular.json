@@ -34,7 +34,7 @@
             "scripts": [
               "src/assets/js/jquery-3.1.1.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/js/js/jquery.sticky-kit.min.js",
+              "src/assets/js/jquery.sticky-kit.min.js",
               "src/assets/js/jquery.scrollbar.min.js",
               "src/assets/js/script.js"
             ]

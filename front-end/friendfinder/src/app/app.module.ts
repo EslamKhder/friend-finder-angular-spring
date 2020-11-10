@@ -19,7 +19,18 @@ import { TimeAlbumComponent } from './componants/time-lines/time-album/time-albu
 import { TimeFriendsComponent } from './componants/time-lines/time-friends/time-friends.component';
 import { TimeLineProfileComponent } from './componants/time-lines/time-line-profile/time-line-profile.component';
 import { TimeLineDetailesComponent } from './componants/time-lines/time-line-detailes/time-line-detailes.component';
+import {RouterModule, Routes} from '@angular/router';
 
+// http://localhost:4200/
+
+const routes: Routes = [
+  {path: 'mainpage', component: MainPageComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'timeline', component: TimeLineComponent},
+  {path: 'time-line-about', component: TimeAboutComponent},
+  {path: 'time-line-friends', component: TimeFriendsComponent},
+  {path: 'time-line-album', component: TimeAlbumComponent},
+];
 
 @NgModule({
   declarations: [
@@ -44,7 +55,8 @@ import { TimeLineDetailesComponent } from './componants/time-lines/time-line-det
     TimeLineDetailesComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
