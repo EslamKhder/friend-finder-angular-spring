@@ -21,7 +21,7 @@ import { TimeLineProfileComponent } from './componants/time-lines/time-line-prof
 import { TimeLineDetailesComponent } from './componants/time-lines/time-line-detailes/time-line-detailes.component';
 import {RouterModule, Routes} from '@angular/router';
 
-// http://localhost:4200/
+// http://localhost:4200
 
 const routes: Routes = [
   {path: 'mainpage', component: MainPageComponent},
