@@ -20,6 +20,7 @@ import { TimeFriendsComponent } from './componants/time-lines/time-friends/time-
 import { TimeLineProfileComponent } from './componants/time-lines/time-line-profile/time-line-profile.component';
 import { TimeLineDetailesComponent } from './componants/time-lines/time-line-detailes/time-line-detailes.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
