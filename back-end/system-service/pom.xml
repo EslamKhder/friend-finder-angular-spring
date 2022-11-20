@@ -12,7 +12,7 @@
     <artifactId>system-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>system-service</name>
-    <description>Demo project for Spring Boot</description>
+    <description>service about any integration about manegement system</description>
     <properties>
         <java.version>11</java.version>
     </properties>
