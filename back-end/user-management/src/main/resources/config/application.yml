@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: user-management
+server:
+  port: 9095
