@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: job-service
+  banner:
+    location: classpath:/banners/banner.txt
+server:
+  port: 8084
+

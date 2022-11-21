@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: user-service
+  banner:
+    location: classpath:/banners/banner.txt
+server:
+  port: 8082

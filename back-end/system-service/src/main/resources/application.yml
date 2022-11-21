@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: system-service
+  banner:
+    location: classpath:/banners/banner.txt
+
+server:
+  port: 8085
