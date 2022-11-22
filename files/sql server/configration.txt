@@ -1,5 +1,5 @@
 driverClassName; com.microsoft.sqlserver.jdbc.SQLServerDriver
-databaseUrl;	jdbc:sqlserver://localhost;DatabaseName=ff;characterEncoding=UTF-8;encrypt=false
+databaseUrl;	jdbc:sqlserver://localhost;DatabaseName=friend-finder;characterEncoding=UTF-8;encrypt=false
 databaseUser;   sasa
 databasePassword;  sasasasa
 hibernateDDLAuto;  create

@@ -21,9 +21,10 @@ datasource:
 # = JPA / HIBERNATE
 # ===============================
 jpa:
-  show-sql:  true
+  showSql:  true
   hibernate:
-    generate-ddl: true
-    hibernateDDLAuto:  create
+    hibernateDDLAuto:  update
     hibernateDialect:  org.hibernate.dialect.SQLServer2012Dialect
+    create_empty_composites:
+        enabled: true
 
