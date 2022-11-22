@@ -7,3 +7,23 @@ spring:
 server:
   port: 9095
 
+# ===============================
+# = SPRING DATABASE
+# ===============================
+datasource:
+  driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  databaseUrl: jdbc:sqlserver://localhost;DatabaseName=friend-finder;characterEncoding=UTF-8;encrypt=false
+  databaseUser: sasa
+  databasePassword: sasasasa
+  platform: org.hibernate.dialect.SQLServer2012Dialect
+
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+jpa:
+  show-sql:  true
+  hibernate:
+    generate-ddl: true
+    hibernateDDLAuto:  create
+    hibernateDialect:  org.hibernate.dialect.SQLServer2012Dialect
+
