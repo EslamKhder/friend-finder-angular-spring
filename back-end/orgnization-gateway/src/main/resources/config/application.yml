@@ -1,5 +1,7 @@
 spring:
   application:
     name: organization-gateway
+  banner:
+    location: classpath:/banners/banner.txt
 server:
   port: 9091

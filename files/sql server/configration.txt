@@ -1,0 +1,6 @@
+driverClassName; com.microsoft.sqlserver.jdbc.SQLServerDriver
+databaseUrl;	jdbc:sqlserver://localhost;DatabaseName=ff;characterEncoding=UTF-8;encrypt=false
+databaseUser;   sasa
+databasePassword;  sasasasa
+hibernateDDLAuto;  create
+hibernateDialect;  org.hibernate.dialect.SQLServer2012Dialect
