@@ -1,0 +1,35 @@
+## Code Style Intellij
+
+- Install `Eclipse code formatter` plugin.
+- Open `settings`
+- Choose `other settings`, `Eclipse code foramtter`
+- Import `codestyle.xml`
+- Uncheck `Optimize Imports`
+- Navigate to `Editor` -> `Code Style` -> `Java` and then to `Imports` tab
+- Modify `Class count to use import with '*':` to `99`
+- Modify `Names count to use static import with '*':` to `99`
+- Sort `Import Layout` as the following:
+    - `import all other imports`
+    - `<blank line>`
+    - `import javax.*`
+    - `import java.*`
+    - `<blank line>`
+    - `import org.*`
+    - `<blank line>`
+    - `import com.*`
+    - `<blank line>`
+    - `import static all other imports`
+
+- Install `Save Actions` plugin.
+- Open `settings`
+- Choose `other settings`, `Save Actions`
+- Check the following `General Category`
+    - Activate save actions on save (before saving each file,performs the configured actions below)
+    - Activate save actions on shortcut (default "CTRL + SHIFT + S")
+    - Activate save actions on batch ("Code > Save Actions > Execute on multiple files")
+    - No Action if compile errors (applied per file)
+- Check the following `Formatting Actions Category`
+    - Optimize imports
+    - Reformat file
+- Add to File Path Inclusions (if empty all included)
+    - .*\.java

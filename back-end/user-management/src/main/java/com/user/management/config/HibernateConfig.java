@@ -1,7 +1,6 @@
 package com.user.management.config;
 
 import javax.sql.DataSource;
-
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -34,27 +33,29 @@ public class HibernateConfig {
     private boolean createEmptyComposites;
 
     @Bean(name = "platformDataSource")
-    public DataSource platformDataSource(){
+    public DataSource platformDataSource() {
         return DataSourceBuilder.create().username(databaseUser)
-                .password(databasePassword).url(databaseUrl).driverClassName(driverClassName).build();
+                        .password(databasePassword).url(databaseUrl)
+                        .driverClassName(driverClassName).build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean platformEntityManger(){
+    public LocalContainerEntityManagerFactoryBean platformEntityManger() {
         LocalContainerEntityManagerFactoryBean em =
-                new LocalContainerEntityManagerFactoryBean();
+                        new LocalContainerEntityManagerFactoryBean();
 
         em.setDataSource(platformDataSource());
-        em.setPackagesToScan(new String [] {"com.user.management"});
+        em.setPackagesToScan(new String[] { "com.user.management" });
         em.setPersistenceUnitName("platformPersistenceUnitName");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
 
-        HashMap<String,Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",hibernateDDLAuto);
-        properties.put("hibernate.dialect",hibernateDialect);
-        properties.put("hibernate.show_sql",showSql);
-        properties.put("hibernate.create_empty_composites.enabled",createEmptyComposites);
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.hbm2ddl.auto", hibernateDDLAuto);
+        properties.put("hibernate.dialect", hibernateDialect);
+        properties.put("hibernate.show_sql", showSql);
+        properties.put("hibernate.create_empty_composites.enabled",
+                        createEmptyComposites);
 
         em.setJpaPropertyMap(properties);
 
@@ -62,7 +63,7 @@ public class HibernateConfig {
     }
 
     @Bean(name = "platformTransactionManager")
-    public PlatformTransactionManager platformTransactionManager(){
+    public PlatformTransactionManager platformTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(platformEntityManger().getObject());
         return transactionManager;
