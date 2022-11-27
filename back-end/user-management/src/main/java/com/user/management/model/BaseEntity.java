@@ -18,11 +18,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.user.management.config.audit.EntityAuditingEventListener;
+
 @EqualsAndHashCode(callSuper = false)
 @Data
 @MappedSuperclass
 @Audited
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({ AuditingEntityListener.class, EntityAuditingEventListener.class })
 public abstract class BaseEntity implements Serializable {
 
     @Id
