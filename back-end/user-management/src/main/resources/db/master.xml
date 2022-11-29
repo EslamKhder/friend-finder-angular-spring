@@ -7,4 +7,5 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <include file="classpath:db/changelog/2022_11_29_00_create_user.sql" />
+    <include file="classpath:db/changelog/2022_11_29_01_create_role.sql" />
 </databaseChangeLog>
