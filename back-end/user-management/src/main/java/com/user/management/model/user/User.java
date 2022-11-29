@@ -20,7 +20,7 @@ import com.user.management.model.userrole.UserRole;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "user")
+@Table(name = "user_system")
 public class User extends BaseEntity {
 
     @Column(name = "name")
