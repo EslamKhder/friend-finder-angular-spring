@@ -7,10 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Language;
+import com.user.management.model.userrole.UserRole;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,4 +38,7 @@ public class User extends BaseEntity {
     @Column(name = "language")
     @Enumerated(EnumType.STRING)
     private Language language;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<UserRole> roles = new ArrayList<>();
 }
