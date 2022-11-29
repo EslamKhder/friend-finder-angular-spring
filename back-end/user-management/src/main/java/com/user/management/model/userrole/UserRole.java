@@ -15,7 +15,7 @@ import com.user.management.model.user.User;
 
 @Data
 @Entity
-@Table(name = "userRole")
+@Table(name = "role_user")
 public class UserRole implements Serializable {
 
     @EmbeddedId

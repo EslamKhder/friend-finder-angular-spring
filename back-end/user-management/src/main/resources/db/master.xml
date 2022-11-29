@@ -9,4 +9,5 @@
     <include file="classpath:db/changelog/2022_11_29_00_create_user.sql"/>
     <include file="classpath:db/changelog/2022_11_29_01_create_role.sql"/>
     <include file="classpath:db/changelog/2022_11_29_02_create_organization.sql"/>
+    <include file="classpath:db/changelog/2022_11_29_03_create_role_user.sql"/>
 </databaseChangeLog>
