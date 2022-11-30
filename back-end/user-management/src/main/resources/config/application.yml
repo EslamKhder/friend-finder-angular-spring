@@ -3,6 +3,10 @@ spring:
     name: ${SPRING.APP.NAME:user-management}
   banner:
     location: ${SPRING.BANNER:classpath:/banners/banner.txt}
+  security:
+    user:
+      name: eslam
+      password: eslam
 
 server:
   port: ${SERVER.PORT:9095}
@@ -27,4 +31,3 @@ jpa:
     hibernateDialect: ${JPA.HIBERNATE.DIALECT:org.hibernate.dialect.SQLServer2012Dialect}
     create_empty_composites:
       enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
-
