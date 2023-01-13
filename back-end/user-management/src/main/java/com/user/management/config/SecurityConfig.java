@@ -1,6 +1,8 @@
 package com.user.management.config;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +16,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Set<String> PUBLIC_APIS = new HashSet();
+
+    static {
+        PUBLIC_APIS.add("/swagger-ui/**");
+        PUBLIC_APIS.add("/student/**");
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and().csrf().disable().cors().and().authorizeRequests()
-                        .anyRequest().authenticated().and().httpBasic();
+                        .antMatchers(String.valueOf(PUBLIC_APIS)).permitAll()
+                        .antMatchers("/test/**").authenticated().and().httpBasic();
     }
 
     @Bean
