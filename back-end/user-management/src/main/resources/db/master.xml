@@ -10,4 +10,5 @@
     <include file="classpath:db/changelog/2022_11_29_01_create_role.sql"/>
     <include file="classpath:db/changelog/2022_11_29_02_create_organization.sql"/>
     <include file="classpath:db/changelog/2022_11_29_03_create_role_user.sql"/>
+    <include file="classpath:db/changelog/2023_01_16_04_alter_user_scope_atr.sql"/>
 </databaseChangeLog>
