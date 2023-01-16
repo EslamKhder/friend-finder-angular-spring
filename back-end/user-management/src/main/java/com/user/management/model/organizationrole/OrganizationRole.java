@@ -1,4 +1,4 @@
-package com.user.management.model.userrole;
+package com.user.management.model.organizationrole;
 
 import lombok.Data;
 
@@ -10,22 +10,22 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+import com.user.management.model.organization.Organization;
 import com.user.management.model.role.CompositeKey;
 import com.user.management.model.role.Role;
-import com.user.management.model.user.User;
 
 @Data
 @Entity
-@Table(name = "user_role")
-public class UserRole implements Serializable {
+@Table(name = "organization_role")
+public class OrganizationRole implements Serializable {
 
     @EmbeddedId
     private CompositeKey compositeKey;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "organization_id")
     @MapsId("integrationId")
-    private User user;
+    private Organization organization;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

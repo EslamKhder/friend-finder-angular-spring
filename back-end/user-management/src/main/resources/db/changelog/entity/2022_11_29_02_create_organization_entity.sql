@@ -6,5 +6,6 @@ CREATE TABLE organization (
     reference_id varchar(255),
     organization_name varchar(255),
     password varchar(255),
-    primary key (id)
+    primary key (id),
+    scope VARCHAR(20) NOT NULL CHECK (scope IN('USER','ORGANIZATION'))
 )
