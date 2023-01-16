@@ -3,8 +3,8 @@ CREATE TABLE organization (
     active BIT,
     created_time datetime2(7) null,
     modified_time datetime2(7) null,
-    referenceId varchar(255),
-    organizationName varchar(255),
+    reference_id varchar(255),
+    organization_name varchar(255),
     password varchar(255),
     primary key (id)
 )
