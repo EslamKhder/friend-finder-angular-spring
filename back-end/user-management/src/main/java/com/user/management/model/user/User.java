@@ -44,5 +44,5 @@ public class User extends BaseEntity {
     private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<UserRole> roles = new ArrayList<>();
+    private List<UserRole> roles;
 }

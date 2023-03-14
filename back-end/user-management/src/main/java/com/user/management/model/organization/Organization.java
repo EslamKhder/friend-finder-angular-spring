@@ -37,5 +37,5 @@ public class Organization extends BaseEntity {
     private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization")
-    private List<OrganizationRole> roles = new ArrayList<>();
+    private List<OrganizationRole> roles;
 }
