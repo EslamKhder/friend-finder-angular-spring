@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-public abstract class CompositeKey implements Serializable {
+public class CompositeKey implements Serializable {
 
     //@Column(name = "integration_id")
     private Long integrationId;

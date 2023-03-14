@@ -3,7 +3,9 @@ package com.user.management.repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.user.management.model.organizationrole.OrganizationRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -42,23 +44,25 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (organization.isPresent()) {
             if (passwordEncoder.matches(password, organization.get().getPassword())) {
-                List<GrantedAuthority> authorityList = new ArrayList<>();
-                authorityList.add(new SimpleGrantedAuthority("organization_user"));
-                /*authorityList.add(new SimpleGrantedAuthority(
-                                organization.get().getRoles()));*/
                 return new UsernamePasswordAuthenticationToken(referenceId, password,
-                                authorityList);
-            } else {
-                throw new BadCredentialsException("Invalid Password");
+                        toSimpleGrantedAuthority(organization.get().getRoles()));
             }
-        } else {
-            throw new BadCredentialsException(
-                            "Invalid Organization you must be register");
         }
+        return null;
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
+    }
+
+    private List<SimpleGrantedAuthority> toSimpleGrantedAuthority(List<OrganizationRole> organizationRoles){
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        for (OrganizationRole organizationRole: organizationRoles){
+            simpleGrantedAuthorities.add( new SimpleGrantedAuthority(
+                    organizationRole.getRole().getCode()
+            ));
+        }
+        return simpleGrantedAuthorities;
     }
 }
