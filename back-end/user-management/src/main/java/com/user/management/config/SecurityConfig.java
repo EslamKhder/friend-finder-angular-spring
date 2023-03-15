@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     static {
         PUBLIC_APIS.add("/swagger-ui/**");
         PUBLIC_APIS.add("/student/**");
+        PUBLIC_APIS.add("/auth/**");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -2,6 +2,8 @@ package com.user.management.controller;
 
 import java.util.Map;
 
+import com.user.management.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,9 +16,16 @@ import com.user.management.model.dto.auth.AuthDto;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private AuthService authService;
+
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
     @GetMapping("/login/user")
     public ResponseEntity<AuthDto> loginUser(@RequestBody Map<String, Object> params) {
-        return null;
+        return ResponseEntity.ok(authService.authUser(params));
     }
 
     @GetMapping("/login/organization")
