@@ -1,14 +1,18 @@
 package com.user.management.model.dto.auth;
 
 import com.user.management.model.userrole.UserRole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.enums.Scope;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthDto {
     @JsonProperty("user_id")
     private Long userId;
