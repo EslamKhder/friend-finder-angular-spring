@@ -1,6 +1,7 @@
 package com.user.management.service;
 
 
+import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.AuthDto;
 import com.user.management.model.user.User;
 import com.user.management.repository.user.UserRepository;
@@ -47,10 +48,10 @@ public class AuthService {
 
     private void validateUserParam(String loginName, String email, String password) {
         if (loginName == null && email == null){
-            throw new BadCredentialsException("you must enter email or loginName");
+            throw new FieldException("Invalid Parameter: you must enter email or loginName","#001","email or loginName");
         }
         if(password == null){
-            throw new BadCredentialsException("you must enter Password");
+            throw new FieldException("Invalid Parameter: you must enter Password","#002","Password");
         }
     }
 }
