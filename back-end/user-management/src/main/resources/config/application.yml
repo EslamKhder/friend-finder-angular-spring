@@ -7,7 +7,9 @@ spring:
     user:
       name: eslam
       password: eslam
-
+  messages:
+    basename: i18n/messages
+    local-default:
 server:
   port: ${SERVER.PORT:9095}
 
