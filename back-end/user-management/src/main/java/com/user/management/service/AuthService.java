@@ -1,6 +1,7 @@
 package com.user.management.service;
 
 
+import com.user.management.config.translate.BundleTranslator;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.AuthDto;
 import com.user.management.model.user.User;
@@ -38,20 +39,20 @@ public class AuthService {
     private User validateUserAuth(String loginName, String email, String password) {
         User user = (loginName != null) ? userRepository.findByLoginName(loginName) : userRepository.findByEmail(email);
         if (user == null){
-            throw new BadCredentialsException("Invalid login Name or Email");
+            throw new BadCredentialsException(BundleTranslator.getMessage("error.loginNameOrEmail.invalid"));
         }
         if (!passwordEncoder.matches(password,user.getPassword())){
-            throw new BadCredentialsException("Invalid Password");
+            throw new BadCredentialsException(BundleTranslator.getMessage("error.password.invalid"));
         }
         return user;
     }
 
     private void validateUserParam(String loginName, String email, String password) {
         if (loginName == null && email == null){
-            throw new FieldException("Invalid Parameter: you must enter email or loginName","#001","email or loginName");
+            throw new FieldException(BundleTranslator.getMessage("error.parameter.emailOrLoginName.invalid"),"#001","email or loginName");
         }
         if(password == null){
-            throw new FieldException("Invalid Parameter: you must enter Password","#002","Password");
+            throw new FieldException(BundleTranslator.getMessage("error.parameter.password.invalid"),"#002","Password");
         }
     }
 }

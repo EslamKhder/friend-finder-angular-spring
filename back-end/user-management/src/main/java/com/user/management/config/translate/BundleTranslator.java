@@ -20,7 +20,8 @@ public class BundleTranslator {
         Locale locale = LocaleContextHolder.getLocale();
         return resourceBundleMessageSource.getMessage(code,null,locale);
     }
-    public static BundleErrorMessage getAllMessage(String code){
+
+    public static BundleErrorMessage getMessages(String code){
         return new BundleErrorMessage(resourceBundleMessageSource.getMessage(code,null, new Locale("ar")),
                 resourceBundleMessageSource.getMessage(code,null, new Locale("en")));
     }
