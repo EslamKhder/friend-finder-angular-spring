@@ -1,6 +1,8 @@
 package com.user.management.model.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.user.management.model.bundle.BundleErrorMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +16,11 @@ public class ErrorExceptionApi {
     private HttpStatus status;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime localDateTime;
-    private String message;
-
-    public ErrorExceptionApi(HttpStatus status, String message) {
+    @JsonProperty("errorMessages")
+    private BundleErrorMessage bundleErrorMessage;
+    public ErrorExceptionApi(HttpStatus status, BundleErrorMessage bundleErrorMessage) {
         localDateTime = LocalDateTime.now();
         this.status = status;
-        this.message = message;
+        this.bundleErrorMessage = bundleErrorMessage;
     }
 }

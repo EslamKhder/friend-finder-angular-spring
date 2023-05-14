@@ -9,7 +9,7 @@ public class BadAuthException extends BadCredentialsException {
     protected final String code;
 
     public BadAuthException(String message, String code) {
-        super(BundleTranslator.getMessage(message));
+        super(message);
         this.code = code;
     }
 }

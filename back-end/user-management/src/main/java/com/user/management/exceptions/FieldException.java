@@ -10,7 +10,7 @@ public class FieldException extends RuntimeException {
     protected final String field;
 
     public FieldException(String message, String code, String field) {
-        super(BundleTranslator.getMessage(message));
+        super(message);
         this.code = code;
         this.field = field;
     }
