@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.dto.auth.UserDto;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @GetMapping("/create")
-    public ResponseEntity<UserAuthDto> create(@RequestBody Map<String, Object> params) {
+    public ResponseEntity<UserDto> create(@RequestBody Map<String, Object> params) {
         return null;
     }
 

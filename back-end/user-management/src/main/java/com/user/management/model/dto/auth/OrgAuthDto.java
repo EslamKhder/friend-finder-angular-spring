@@ -1,28 +1,27 @@
 package com.user.management.model.dto.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.user.management.model.enums.Scope;
+import com.user.management.model.organizationrole.OrganizationRole;
 import com.user.management.model.userrole.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.user.management.model.enums.Scope;
-import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthDto {
-    @JsonProperty("user_id")
-    private Long userId;
+public class OrgAuthDto {
+    @JsonProperty("org_id")
+    private Long orgId;
     @JsonProperty("access_token")
     private String accessToken;
     @JsonProperty("expire_at")
     private String expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<UserRole> roles;
-    private boolean admin;
+    private List<OrganizationRole> roles;
     private Scope scope;
 }
