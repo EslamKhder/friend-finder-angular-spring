@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.SystemException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
      * @return AuthDto
      */
     @Override
-    public UserAuthDto authUser(Map<String, Object> params){
+    public UserAuthDto authUser(Map<String, Object> params) throws SystemException {
         // extract params of users
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
@@ -66,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
      * @return OrgAuthDto
      */
     @Override
-    public OrgAuthDto authOrganization(Map<String, Object> params) {
+    public OrgAuthDto authOrganization(Map<String, Object> params) throws SystemException {
         // extract params of organization
         String referenceId = (String) params.get("reference_id");
         String password = (String) params.get("password");
@@ -153,10 +154,10 @@ public class AuthServiceImpl implements AuthService {
      * extract roles
      * @param userType
      */
-    private <T> List<RoleDto> extractRoles(T userType) { // OrganizationRole  UserRole
+    private <T> List<RoleDto> extractRoles(T userType) throws SystemException { // OrganizationRole  UserRole
 
         if (!(userType instanceof User || userType instanceof Organization)) {
-            // TODO throw system exception
+            throw new SystemException("to extract roles you must send User OR Organization");
         }
 
         if (userType instanceof User) {

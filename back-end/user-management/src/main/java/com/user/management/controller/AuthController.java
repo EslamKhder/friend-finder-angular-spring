@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.user.management.model.dto.auth.UserAuthDto;
 
+import javax.transaction.SystemException;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -25,13 +27,13 @@ public class AuthController {
     }
 
     @GetMapping("/login/user")
-    public ResponseEntity<UserAuthDto> loginUser(@RequestBody Map<String, Object> params) {
+    public ResponseEntity<UserAuthDto> loginUser(@RequestBody Map<String, Object> params) throws SystemException {
         return ResponseEntity.ok(authService.authUser(params));
     }
 
     @GetMapping("/login/organization")
     public ResponseEntity<OrgAuthDto> loginOrganization(
-                    @RequestBody Map<String, Object> params) {
+                    @RequestBody Map<String, Object> params) throws SystemException {
 
         return ResponseEntity.ok(authService.authOrganization(params));
     }
