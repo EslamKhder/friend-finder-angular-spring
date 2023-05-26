@@ -1,6 +1,7 @@
 package com.user.management.model.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.organizationrole.OrganizationRole;
 import com.user.management.model.userrole.UserRole;
@@ -16,12 +17,19 @@ import java.util.List;
 public class OrgAuthDto {
     @JsonProperty("org_id")
     private Long orgId;
+
     @JsonProperty("access_token")
     private String accessToken;
+
     @JsonProperty("expire_at")
     private String expireAt;
+
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<OrganizationRole> roles;
+
+    @JsonProperty("roles")
+    private List<RoleDto> roles;
+
+    @JsonProperty("scope")
     private Scope scope;
 }

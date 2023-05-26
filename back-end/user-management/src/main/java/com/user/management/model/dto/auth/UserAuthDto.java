@@ -1,5 +1,6 @@
 package com.user.management.model.dto.auth;
 
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.userrole.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class UserAuthDto {
     private String expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<UserRole> roles;
+    private List<RoleDto> roles;
     private boolean admin;
     private Scope scope;
 }

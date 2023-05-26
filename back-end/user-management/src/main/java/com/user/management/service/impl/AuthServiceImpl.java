@@ -5,8 +5,11 @@ import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.OrgAuthDto;
 import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.organization.Organization;
+import com.user.management.model.organizationrole.OrganizationRole;
 import com.user.management.model.user.User;
+import com.user.management.model.userrole.UserRole;
 import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.user.UserRepository;
 import com.user.management.service.AuthService;
@@ -14,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -52,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         User user = validateUserAuth(loginName, email, password);
 
-        return new UserAuthDto(user.getId(),"token","expire","re_token",user.getRoles(),user.isAdmin(),user.getScope());
+        return new UserAuthDto(user.getId(), "token", "expire", "re_token", extractRoles(user), user.isAdmin(), user.getScope());
     }
 
     /**
@@ -72,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         Organization organization = validateOrganizationAuth(referenceId, password);
 
-        return new OrgAuthDto(organization.getId(),"token","expire","re_token",organization.getRoles(),organization.getScope());
+        return new OrgAuthDto(organization.getId(), "token", "expire", "re_token", extractRoles(organization), organization.getScope());
 
     }
 
@@ -132,5 +137,40 @@ public class AuthServiceImpl implements AuthService {
         if(password == null){
             throw new FieldException("error.parameter.password.invalid","#002","Password");
         }
+    }
+
+    /**
+     * extract roles
+     * @param roles
+     */
+    private List<RoleDto> extractOrganizationRole(List<OrganizationRole> roles) {
+        return roles.stream().map(organizationRole ->
+                new RoleDto(organizationRole.getRole().getCode(),
+                        organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+    }
+
+    /**
+     * extract roles
+     * @param userType
+     */
+    private <T> List<RoleDto> extractRoles(T userType) { // OrganizationRole  UserRole
+
+        if (!(userType instanceof User || userType instanceof Organization)) {
+            // TODO throw system exception
+        }
+
+        if (userType instanceof User) {
+            return ((User)userType).getRoles().stream().map(organizationRole ->
+                    new RoleDto(organizationRole.getRole().getCode(),
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+        }
+
+        if (userType instanceof Organization) {
+            return ((Organization)userType).getRoles().stream().map(organizationRole ->
+                    new RoleDto(organizationRole.getRole().getCode(),
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+        }
+
+        return null;
     }
 }
