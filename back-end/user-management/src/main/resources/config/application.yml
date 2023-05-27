@@ -34,9 +34,8 @@ jpa:
     create_empty_composites:
       enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
 
-user:
-  management:
+user-management:
     token:
       secret: dshfksdjhk#$^sfddsmnmcfdmn_++#@$fsdfmns,fs@$RGDSF$@%<<<.hfh
-      access-toke-time: 5h
-      refresh-toke: 2h
+      access-token-time: 5h
+      refresh-token-time: 2h
