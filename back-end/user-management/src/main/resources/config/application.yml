@@ -33,3 +33,10 @@ jpa:
     hibernateDialect: ${JPA.HIBERNATE.DIALECT:org.hibernate.dialect.SQLServer2012Dialect}
     create_empty_composites:
       enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
+
+user:
+  management:
+    token:
+      secret: dshfksdjhk#$^sfddsmnmcfdmn_++#@$fsdfmns,fs@$RGDSF$@%<<<.hfh
+      access-toke-time: 5h
+      refresh-toke: 2h
