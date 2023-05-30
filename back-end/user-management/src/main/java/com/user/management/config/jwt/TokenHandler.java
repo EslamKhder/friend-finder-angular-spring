@@ -1,4 +1,4 @@
-package com.user.management.config;
+package com.user.management.config.jwt;
 
 import com.user.management.sittings.Configurations;
 import io.jsonwebtoken.Claims;
