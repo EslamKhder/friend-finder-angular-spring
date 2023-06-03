@@ -1,7 +1,7 @@
 package com.user.management.service;
 
-import com.user.management.model.dto.auth.OrgAuthDto;
-import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.dto.auth.OrgDto;
+import com.user.management.model.dto.auth.UserDto;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.SystemException;
@@ -15,12 +15,12 @@ public interface AuthService {
      * @param params
      * @return AuthDto
      */
-    UserAuthDto authUser(Map<String, Object> params) throws SystemException;
+    UserDto authUser(Map<String, Object> params) throws SystemException;
 
     /**
      * login with organization
      * @param params
      * @return OrgAuthDto
      */
-    OrgAuthDto authOrganization(Map<String, Object> params) throws SystemException;
+    OrgDto authOrganization(Map<String, Object> params) throws SystemException;
 }

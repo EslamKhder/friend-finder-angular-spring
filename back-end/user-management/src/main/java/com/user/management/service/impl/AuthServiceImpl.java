@@ -5,13 +5,12 @@ import com.user.management.config.jwt.AccessTokenOrganizationHandler;
 import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
-import com.user.management.model.dto.auth.OrgAuthDto;
-import com.user.management.model.dto.auth.UserAuthDto;
+import com.user.management.model.dto.auth.OrgDto;
+import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.organization.Organization;
 import com.user.management.model.organizationrole.OrganizationRole;
 import com.user.management.model.user.User;
-import com.user.management.model.userrole.UserRole;
 import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.user.UserRepository;
 import com.user.management.service.AuthService;
@@ -53,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
      * @return AuthDto
      */
     @Override
-    public UserAuthDto authUser(Map<String, Object> params) throws SystemException {
+    public UserDto authUser(Map<String, Object> params) throws SystemException {
         // extract params of users
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
@@ -68,7 +67,7 @@ public class AuthServiceImpl implements AuthService {
         // create token
         String token = accessTokenUserHandler.createToken(user);
 
-        return new UserAuthDto(user.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
+        return new UserDto(user.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
     }
 
     /**
@@ -77,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
      * @return OrgAuthDto
      */
     @Override
-    public OrgAuthDto authOrganization(Map<String, Object> params) throws SystemException {
+    public OrgDto authOrganization(Map<String, Object> params) throws SystemException {
         // extract params of organization
         String referenceId = (String) params.get("reference_id");
         String password = (String) params.get("password");
@@ -91,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
         // create token
         String token =  accessTokenOrganizationHandler.createToken(organization);
 
-        return new OrgAuthDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
+        return new OrgDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
     }
 
     private Organization validateOrganizationAuth(String referenceId, String password) {
