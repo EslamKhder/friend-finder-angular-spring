@@ -1,6 +1,20 @@
 package com.user.management.model.enums;
 
 public enum Language {
-    ARABIC,
-    ENGLISH
+    ARABIC("ARABIC"),
+    ENGLISH("ENGLISH");
+
+    private String value;
+    Language(String value) {
+        this.value = value;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return this.value();
+    }
 }

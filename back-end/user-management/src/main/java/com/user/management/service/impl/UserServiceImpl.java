@@ -2,6 +2,8 @@ package com.user.management.service.impl;
 
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.UserDto;
+import com.user.management.model.enums.Language;
+import com.user.management.model.enums.Scope;
 import com.user.management.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,24 @@ public class UserServiceImpl implements UserService {
         if (Objects.isNull(params.get("scope"))) {
             throw new FieldException("error.scope.required","#013","scope");
         }
+
+        if (
+            !(
+                Language.ARABIC.value().equals(params.get("language")) ||
+                Language.ENGLISH.value().equals(params.get("language"))
+            )
+          ) {
+            throw new FieldException("error.language.invalid","#014","language");
+        }
+
+        if (
+            !(
+                Scope.USER.value().equals(params.get("scope")) ||
+                Scope.ORGANIZATION.value().equals(params.get("scope"))
+            )
+        ) {
+            throw new FieldException("error.scope.invalid","#015","scope");
+        }
+
     }
 }
