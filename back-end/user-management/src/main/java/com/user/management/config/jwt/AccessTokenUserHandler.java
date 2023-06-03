@@ -3,6 +3,7 @@ package com.user.management.config.jwt;
 import com.user.management.model.user.User;
 import com.user.management.sittings.Configurations;
 import io.jsonwebtoken.JwtBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -19,6 +20,7 @@ public class AccessTokenUserHandler extends TokenHandler<User> {
      *
      * @param configurations
      */
+    @Autowired
     public AccessTokenUserHandler(Configurations configurations) {
         super(configurations);
         this.accessTokenTtl = configurations.getToken().getAccessTokenTime();

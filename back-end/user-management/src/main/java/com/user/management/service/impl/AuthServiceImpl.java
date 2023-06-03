@@ -1,6 +1,8 @@
 package com.user.management.service.impl;
 
 
+import com.user.management.config.jwt.AccessTokenOrganizationHandler;
+import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.OrgAuthDto;
@@ -32,13 +34,18 @@ public class AuthServiceImpl implements AuthService {
 
     private OrganizationRepository organizationRepository;
 
+    private AccessTokenUserHandler accessTokenUserHandler;
+
+    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
+
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, OrganizationRepository organizationRepository) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, OrganizationRepository organizationRepository, AccessTokenUserHandler accessTokenUserHandler, AccessTokenOrganizationHandler accessTokenOrganizationHandler) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.organizationRepository = organizationRepository;
+        this.accessTokenUserHandler = accessTokenUserHandler;
+        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
     }
-
 
     /**
      * login with user
@@ -58,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         User user = validateUserAuth(loginName, email, password);
 
-        return new UserAuthDto(user.getId(), "token", "expire", "re_token", extractRoles(user), user.isAdmin(), user.getScope());
+        return new UserAuthDto(user.getId(), accessTokenUserHandler.createToken(user), "expire", accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
     }
 
     /**
@@ -78,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         Organization organization = validateOrganizationAuth(referenceId, password);
 
-        return new OrgAuthDto(organization.getId(), "token", "expire", "re_token", extractRoles(organization), organization.getScope());
+        return new OrgAuthDto(organization.getId(), accessTokenOrganizationHandler.createToken(organization), "expire", accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
 
     }
 

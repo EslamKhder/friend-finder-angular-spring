@@ -4,6 +4,7 @@ import com.user.management.model.organization.Organization;
 import com.user.management.model.user.User;
 import com.user.management.sittings.Configurations;
 import io.jsonwebtoken.JwtBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -20,6 +21,7 @@ public class AccessTokenOrganizationHandler extends TokenHandler<Organization> {
      *
      * @param configurations
      */
+    @Autowired
     public AccessTokenOrganizationHandler(Configurations configurations) {
         super(configurations);
         this.accessTokenTtl = configurations.getToken().getAccessTokenTime();
