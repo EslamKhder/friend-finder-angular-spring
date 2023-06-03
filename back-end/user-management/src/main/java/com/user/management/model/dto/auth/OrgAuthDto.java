@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class OrgAuthDto {
     private String accessToken;
 
     @JsonProperty("expire_at")
-    private String expireAt;
+    private Date expireAt;
 
     @JsonProperty("refresh_token")
     private String refreshToken;

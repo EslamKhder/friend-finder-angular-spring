@@ -5,6 +5,7 @@ import com.user.management.model.userrole.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +21,7 @@ public class UserAuthDto {
     @JsonProperty("access_token")
     private String accessToken;
     @JsonProperty("expire_at")
-    private String expireAt;
+    private Date expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
     private List<RoleDto> roles;

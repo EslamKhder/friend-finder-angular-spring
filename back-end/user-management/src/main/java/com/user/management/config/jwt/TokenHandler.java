@@ -70,6 +70,15 @@ public abstract class TokenHandler<A> {
     }
 
     /**
+     * get token Expire At
+     * @param token
+     * @return Date
+     */
+    public Date getExpireAt(String token){
+        return parser.parseClaimsJws(token).getBody().getExpiration();
+    }
+
+    /**
      * get subject of token
      * @param token
      * @return subject

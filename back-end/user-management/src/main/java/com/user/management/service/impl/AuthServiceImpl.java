@@ -65,7 +65,10 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         User user = validateUserAuth(loginName, email, password);
 
-        return new UserAuthDto(user.getId(), accessTokenUserHandler.createToken(user), "expire", accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
+        // create token
+        String token = accessTokenUserHandler.createToken(user);
+
+        return new UserAuthDto(user.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
     }
 
     /**
@@ -85,8 +88,10 @@ public class AuthServiceImpl implements AuthService {
         // validate user auth
         Organization organization = validateOrganizationAuth(referenceId, password);
 
-        return new OrgAuthDto(organization.getId(), accessTokenOrganizationHandler.createToken(organization), "expire", accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
+        // create token
+        String token =  accessTokenOrganizationHandler.createToken(organization);
 
+        return new OrgAuthDto(organization.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
     }
 
     private Organization validateOrganizationAuth(String referenceId, String password) {
