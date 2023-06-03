@@ -23,7 +23,7 @@ public class OrgAuthDto {
     private String accessToken;
 
     @JsonProperty("expire_at")
-    private Date expireAt;
+    private String expireAt;
 
     @JsonProperty("refresh_token")
     private String refreshToken;

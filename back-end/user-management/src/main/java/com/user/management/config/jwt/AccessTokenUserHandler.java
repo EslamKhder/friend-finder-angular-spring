@@ -20,7 +20,6 @@ public class AccessTokenUserHandler extends TokenHandler<User> {
      *
      * @param configurations
      */
-    @Autowired
     public AccessTokenUserHandler(Configurations configurations) {
         super(configurations);
         this.accessTokenTtl = configurations.getToken().getAccessTokenTime();

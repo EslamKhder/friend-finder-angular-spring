@@ -91,7 +91,7 @@ public class AuthServiceImpl implements AuthService {
         // create token
         String token =  accessTokenOrganizationHandler.createToken(organization);
 
-        return new OrgAuthDto(organization.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
+        return new OrgAuthDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
     }
 
     private Organization validateOrganizationAuth(String referenceId, String password) {
