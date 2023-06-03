@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.SystemException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -93,6 +94,12 @@ public class AuthServiceImpl implements AuthService {
         return new OrgDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
     }
 
+    /**
+     * validate Organization Auth
+     * @param referenceId
+     * @param password
+     * @return
+     */
     private Organization validateOrganizationAuth(String referenceId, String password) {
         Optional<Organization> organization =  organizationRepository.findByReferenceId(referenceId);
         if (!organization.isPresent()){
@@ -110,11 +117,11 @@ public class AuthServiceImpl implements AuthService {
      * @param password
      */
     private void validateOrganizationParam(String referenceId, String password) {
-        if (referenceId == null ){
-            throw new FieldException("error.parameter.referenceId.invalid","#005","referenceId");
+        if (Objects.isNull(referenceId)){
+            throw new FieldException("error.referenceId.required","#005","referenceId");
         }
-        if(password == null){
-            throw new FieldException("error.parameter.password.invalid","#006","Password");
+        if(Objects.isNull(password)){
+            throw new FieldException("error.password.required","#006","Password");
         }
     }
 
@@ -143,11 +150,11 @@ public class AuthServiceImpl implements AuthService {
      * @param password
      */
     private void validateUserParam(String loginName, String email, String password) {
-        if (loginName == null && email == null){
-            throw new FieldException("error.parameter.emailOrLoginName.invalid","#001","email or loginName");
+        if (Objects.isNull(loginName) && Objects.isNull(email)){
+            throw new FieldException("error.emailOrLoginName.required","#001","email or loginName");
         }
-        if(password == null){
-            throw new FieldException("error.parameter.password.invalid","#002","Password");
+        if(Objects.isNull(password)){
+            throw new FieldException("error.password.required","#002","Password");
         }
     }
 

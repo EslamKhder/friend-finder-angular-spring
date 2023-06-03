@@ -25,6 +25,10 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    /**
+     * validate User Fields
+     * @param params
+     */
     private static void validateUserFields(Map<String, Object> params) {
         if (Objects.isNull(params.get("name"))) {
             throw new FieldException("error.name.required","#007","name");
@@ -33,7 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new FieldException("error.loginName.required","#008","loginName");
         }
         if (Objects.isNull(params.get("password"))) {
-            throw new FieldException("error.parameter.password.invalid","#009","password");
+            throw new FieldException("error.password.required","#009","password");
         }
         if (Objects.isNull(params.get("email"))) {
             throw new FieldException("error.email.required","#010","email");
