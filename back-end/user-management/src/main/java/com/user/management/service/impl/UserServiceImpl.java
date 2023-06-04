@@ -4,15 +4,25 @@ import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
+import com.user.management.model.user.User;
+import com.user.management.repository.user.UserRepository;
 import com.user.management.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    private UserRepository userRepository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * create user
@@ -24,7 +34,25 @@ public class UserServiceImpl implements UserService {
 
         validateUserFields(params);
 
-        return null;
+        String name = params.get("name").toString();
+        String loginName = params.get("loginName").toString();
+        String email = params.get("email").toString();
+        String password = params.get("password").toString();
+        String mobilePhone = params.get("mobilePhone").toString();
+        Language language = Language.valueOf(params.get("language").toString());
+        Scope scope = Scope.valueOf(params.get("scope").toString());
+
+        Optional<User> user = userRepository.findByLoginNameOrEmail(loginName, email);
+
+        if (user.isPresent()) {
+            // TODO Throw Exception
+        }
+
+        User userCreation = new User(name, loginName, password, email, mobilePhone, false, language, scope, true);
+
+        userCreation = userRepository.save(userCreation);
+
+        return new UserDto(userCreation.getId(), "accessToken", "expire_at", "refreshToken", null, userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
     }
 
     /**

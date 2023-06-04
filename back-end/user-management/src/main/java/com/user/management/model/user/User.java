@@ -1,5 +1,6 @@
 package com.user.management.model.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,8 +18,10 @@ import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "user_system")
@@ -45,4 +48,17 @@ public class User extends BaseEntity {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<UserRole> roles;
+
+    public User(String name, String loginName, String password, String email, String mobilePhone, boolean admin, Language language, Scope scope, boolean active) {
+        super(active);
+        this.name = name;
+        this.loginName = loginName;
+        this.password = password;
+        this.email = email;
+        this.mobilePhone = mobilePhone;
+        this.admin = admin;
+        this.language = language;
+        this.scope = scope;
+        this.roles = roles;
+    }
 }

@@ -42,5 +42,9 @@ public abstract class BaseEntity implements Serializable {
     @Column(name = "modified_time")
     private LocalDateTime modifiedTime;
 
+    public BaseEntity(boolean active) {
+        this.active = active;
+    }
+
     // private Long modifiedBy;
 }
