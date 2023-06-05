@@ -68,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
         // create token
         String token = accessTokenUserHandler.createToken(user);
 
-        return new UserDto(user.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getScope());
+        return new UserDto(user.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(user), extractRoles(user), user.isAdmin(), user.getLanguage(), user.getScope());
     }
 
     /**

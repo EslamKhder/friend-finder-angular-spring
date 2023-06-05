@@ -1,28 +1,42 @@
 package com.user.management.service.impl;
 
+import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BusinessException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.UserDto;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
+import com.user.management.model.organization.Organization;
 import com.user.management.model.user.User;
 import com.user.management.repository.user.UserRepository;
 import com.user.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.SystemException;
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    private AccessTokenUserHandler accessTokenUserHandler;
+
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, AccessTokenUserHandler accessTokenUserHandler, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.accessTokenUserHandler = accessTokenUserHandler;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -31,7 +45,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserDto create(Map<String, Object> params) {
+    public UserDto create(Map<String, Object> params) throws SystemException {
 
         validateUserFields(params);
 
@@ -49,11 +63,16 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException("error.user.loginName.email.exist", "#016", "loginName | email");
         }
 
-        User userCreation = new User(name, loginName, password, email, mobilePhone, false, language, scope, true);
+        User userCreation = new User(name, loginName, passwordEncoder.encode(password), email, mobilePhone, false, language, scope, true);
+
+        // TODO ADD Roles
 
         userCreation = userRepository.save(userCreation);
 
-        return new UserDto(userCreation.getId(), "accessToken", "expire_at", "refreshToken", null, userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
+        // create token
+        String token =  accessTokenUserHandler.createToken(userCreation);
+
+        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), extractRoles(userCreation), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
     }
 
     /**
@@ -101,5 +120,30 @@ public class UserServiceImpl implements UserService {
             throw new FieldException("error.scope.invalid","#015","scope");
         }
 
+    }
+
+    /**
+     * extract roles
+     * @param userType
+     */
+    private <T> List<RoleDto> extractRoles(T userType) throws SystemException {
+
+        if (!(userType instanceof User || userType instanceof Organization)) {
+            throw new SystemException("to extract roles you must send User OR Organization");
+        }
+
+        if (userType instanceof User) {
+            return ((User)userType).getRoles().stream().map(organizationRole ->
+                    new RoleDto(organizationRole.getRole().getCode(),
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+        }
+
+        if (userType instanceof Organization) {
+            return ((Organization)userType).getRoles().stream().map(organizationRole ->
+                    new RoleDto(organizationRole.getRole().getCode(),
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+        }
+
+        return null;
     }
 }

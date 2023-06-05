@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.SystemException;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserDto> create(@RequestBody Map<String, Object> params) {
+    public ResponseEntity<UserDto> create(@RequestBody Map<String, Object> params) throws SystemException {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.create(params));
     }
 

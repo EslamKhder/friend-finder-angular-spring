@@ -37,4 +37,5 @@ public class UserDto {
         this.language = language;
         this.scope = scope;
     }
+
 }

@@ -1,6 +1,5 @@
 package com.user.management.model.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,17 +10,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "user_system")
@@ -59,6 +55,5 @@ public class User extends BaseEntity {
         this.admin = admin;
         this.language = language;
         this.scope = scope;
-        this.roles = roles;
     }
 }
