@@ -1,5 +1,6 @@
 package com.user.management.service.impl;
 
+import com.user.management.exceptions.BusinessException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.enums.Language;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByLoginNameOrEmail(loginName, email);
 
         if (user.isPresent()) {
-            // TODO Throw Exception
+            throw new BusinessException("error.user.loginName.email.exist", "#016", "loginName | email");
         }
 
         User userCreation = new User(name, loginName, password, email, mobilePhone, false, language, scope, true);

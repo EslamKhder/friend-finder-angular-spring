@@ -2,6 +2,7 @@ package com.user.management.config;
 
 import com.user.management.config.translate.BundleTranslator;
 import com.user.management.exceptions.BadAuthException;
+import com.user.management.exceptions.BusinessException;
 import com.user.management.exceptions.FieldException;
 import com.user.management.model.exception.ErrorExceptionApi;
 import org.springframework.core.Ordered;
@@ -25,6 +26,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadAuthException.class)
     public final ResponseEntity<Object> handleBadCredentialsException(BadAuthException exception) {
         return buildResponseEntity(new ErrorExceptionApi(HttpStatus.UNAUTHORIZED, BundleTranslator.getMessages(exception.getMessage())));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public final ResponseEntity<Object> handleBusinessException(BusinessException exception) {
+        return buildResponseEntity(new ErrorExceptionApi(HttpStatus.FOUND, BundleTranslator.getMessages(exception.getMessage())));
     }
 
 
