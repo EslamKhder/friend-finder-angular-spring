@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
         }
 
         User userCreation = new User(name, loginName, passwordEncoder.encode(password), email, mobilePhone, false, language, scope, true);
-
         // TODO ADD Roles
 
         userCreation = userRepository.save(userCreation);
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
         // create token
         String token =  accessTokenUserHandler.createToken(userCreation);
 
-        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), extractRoles(userCreation), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
+        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), null/*extractRoles(userCreation)*/, userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
     }
 
     /**

@@ -15,7 +15,14 @@ public class EntityAuditingEventListener implements ConfigurableObject {
     public void onPrePersist(Object target)
                     throws NoSuchFieldException, IllegalAccessException {
         Class<?> entityClass = target.getClass();
-        Field idField = entityClass.getDeclaredField("id");
+        Field idField;
+        try {
+            Field[] fields = entityClass.getDeclaredFields();
+            idField = entityClass.getDeclaredField("id");
+        } catch (Exception exception) {
+            return;
+        }
+
 
         if (idField == null) {
             return;

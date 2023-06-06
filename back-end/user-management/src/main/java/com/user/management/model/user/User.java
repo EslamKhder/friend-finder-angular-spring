@@ -1,7 +1,6 @@
 package com.user.management.model.user;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,9 @@ import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.userrole.UserRole;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "user_system")
 public class User extends BaseEntity {
