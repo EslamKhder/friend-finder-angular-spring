@@ -5,7 +5,9 @@ import com.user.management.model.enums.Language;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.enums.Scope;
@@ -22,12 +24,12 @@ public class UserDto {
     private String expireAt;
     @JsonProperty("refresh_token")
     private String refreshToken;
-    private List<RoleDto> roles;
+    private Set<RoleDto> roles = new HashSet();
     private boolean admin;
     private Language language;
     private Scope scope;
 
-    public UserDto(Long userId, String accessToken, String expireAt, String refreshToken, List<RoleDto> roles, boolean admin, Language language, Scope scope) {
+    public UserDto(Long userId, String accessToken, String expireAt, String refreshToken, Set<RoleDto> roles, boolean admin, Language language, Scope scope) {
         this.userId = userId;
         this.accessToken = accessToken;
         this.expireAt = expireAt;
@@ -36,6 +38,18 @@ public class UserDto {
         this.admin = admin;
         this.language = language;
         this.scope = scope;
+    }
+
+    public UserDto(Long userId, String accessToken, String expireAt, String refreshToken, RoleDto roleDto, boolean admin, Language language, Scope scope) {
+        this.userId = userId;
+        this.accessToken = accessToken;
+        this.expireAt = expireAt;
+        this.refreshToken = refreshToken;
+        this.roles = roles;
+        this.admin = admin;
+        this.language = language;
+        this.scope = scope;
+        roles.add(roleDto);
     }
 
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class OrgDto {
     private String refreshToken;
 
     @JsonProperty("roles")
-    private List<RoleDto> roles;
+    private Set<RoleDto> roles;
 
     @JsonProperty("scope")
     private Scope scope;

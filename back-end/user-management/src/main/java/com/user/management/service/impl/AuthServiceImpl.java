@@ -19,10 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.SystemException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -172,7 +169,7 @@ public class AuthServiceImpl implements AuthService {
      * extract roles
      * @param userType
      */
-    private <T> List<RoleDto> extractRoles(T userType) throws SystemException { // OrganizationRole  UserRole
+    private <T> Set<RoleDto> extractRoles(T userType) throws SystemException { // OrganizationRole  UserRole
 
         if (!(userType instanceof User || userType instanceof Organization)) {
             throw new SystemException("to extract roles you must send User OR Organization");
@@ -181,13 +178,13 @@ public class AuthServiceImpl implements AuthService {
         if (userType instanceof User) {
             return ((User)userType).getRoles().stream().map(organizationRole ->
                     new RoleDto(organizationRole.getRole().getCode(),
-                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toSet());
         }
 
         if (userType instanceof Organization) {
             return ((Organization)userType).getRoles().stream().map(organizationRole ->
                     new RoleDto(organizationRole.getRole().getCode(),
-                            organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
+                            organizationRole.getRole().getDisplayName())).collect(Collectors.toSet());
         }
 
         return null;

@@ -13,14 +13,16 @@ import java.io.Serializable;
 import com.user.management.model.role.CompositeKey;
 import com.user.management.model.role.Role;
 import com.user.management.model.user.User;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "user_role")
+@NoArgsConstructor
 public class UserRole implements Serializable {
 
     @EmbeddedId
-    private CompositeKey compositeKey;
+    private CompositeKey compositeKey = new CompositeKey();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,4 +33,9 @@ public class UserRole implements Serializable {
     @JoinColumn(name = "role_id")
     @MapsId("roleId")
     private Role role;
+
+    public UserRole(User user, Role role) {
+        this.user = user;
+        this.role = role;
+    }
 }

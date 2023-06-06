@@ -9,7 +9,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Language;
@@ -43,7 +46,7 @@ public class User extends BaseEntity {
     private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<UserRole> roles;
+    private Set<UserRole> roles = new HashSet();
 
     public User(String name, String loginName, String password, String email, String mobilePhone, boolean admin, Language language, Scope scope, boolean active) {
         super(active);

@@ -8,7 +8,11 @@ import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.organization.Organization;
+import com.user.management.model.role.Role;
 import com.user.management.model.user.User;
+import com.user.management.model.userrole.UserRole;
+import com.user.management.repository.role.RoleRepository;
+import com.user.management.repository.role.UserRoleRepository;
 import com.user.management.repository.user.UserRepository;
 import com.user.management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.SystemException;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,13 +31,18 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    private RoleRepository roleRepository;
+    private UserRoleRepository userRoleRepository;
+
     private AccessTokenUserHandler accessTokenUserHandler;
 
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AccessTokenUserHandler accessTokenUserHandler, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, AccessTokenUserHandler accessTokenUserHandler, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.userRoleRepository = userRoleRepository;
         this.accessTokenUserHandler = accessTokenUserHandler;
         this.passwordEncoder = passwordEncoder;
     }
@@ -64,14 +72,23 @@ public class UserServiceImpl implements UserService {
         }
 
         User userCreation = new User(name, loginName, passwordEncoder.encode(password), email, mobilePhone, false, language, scope, true);
-        // TODO ADD Roles
 
         userCreation = userRepository.save(userCreation);
+
+        Role role = roleRepository.findById(3L).get();
+
+        UserRole userRole = new UserRole(userCreation, role);
+
+        userRole.getCompositeKey().setRoleId(role.getId());
+        userRole.getCompositeKey().setIntegrationId(userCreation.getId());
+
+        // add USER ROLE to user creation
+        userRoleRepository.save(userRole);
 
         // create token
         String token =  accessTokenUserHandler.createToken(userCreation);
 
-        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), null/*extractRoles(userCreation)*/, userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
+        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), new RoleDto(role.getCode(), role.getDisplayName()), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
     }
 
     /**
