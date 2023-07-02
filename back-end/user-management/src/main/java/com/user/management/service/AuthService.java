@@ -4,7 +4,6 @@ import com.user.management.model.dto.auth.OrgDto;
 import com.user.management.model.dto.auth.UserDto;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.SystemException;
 import java.util.Map;
 
 @Service
@@ -15,12 +14,12 @@ public interface AuthService {
      * @param params
      * @return AuthDto
      */
-    UserDto authUser(Map<String, Object> params) throws SystemException;
+    UserDto authUser(Map<String, Object> params);
 
     /**
      * login with organization
      * @param params
      * @return OrgAuthDto
      */
-    OrgDto authOrganization(Map<String, Object> params) throws SystemException;
+    OrgDto authOrganization(Map<String, Object> params);
 }

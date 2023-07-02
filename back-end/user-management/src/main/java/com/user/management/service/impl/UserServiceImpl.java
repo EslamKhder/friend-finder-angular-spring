@@ -3,6 +3,7 @@ package com.user.management.service.impl;
 import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BusinessException;
 import com.user.management.exceptions.FieldException;
+import com.user.management.exceptions.SysException;
 import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Language;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.SystemException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserDto create(Map<String, Object> params) throws SystemException {
+    public UserDto create(Map<String, Object> params) throws SysException {
 
         validateUserFields(params);
 
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
         Optional<Role> role = roleRepository.findByCode(USER_ROLE_CODE);
 
         if (!role.isPresent()) {
-            throw new SystemException("role not exist");
+            throw new SysException("role not exist", "#017");
         }
 
         UserRole userRole = new UserRole(userCreation, role.get());

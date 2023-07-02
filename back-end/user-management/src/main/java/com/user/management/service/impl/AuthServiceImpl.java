@@ -5,11 +5,11 @@ import com.user.management.config.jwt.AccessTokenOrganizationHandler;
 import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.exceptions.BadAuthException;
 import com.user.management.exceptions.FieldException;
+import com.user.management.exceptions.SysException;
 import com.user.management.model.dto.auth.OrgDto;
 import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.organization.Organization;
-import com.user.management.model.organizationrole.OrganizationRole;
 import com.user.management.model.user.User;
 import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.user.UserRepository;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.SystemException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
      * @return AuthDto
      */
     @Override
-    public UserDto authUser(Map<String, Object> params) throws SystemException {
+    public UserDto authUser(Map<String, Object> params) throws SysException {
         // extract params of users
         String loginName = (String) params.get("loginName");
         String email = (String) params.get("email");
@@ -74,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
      * @return OrgAuthDto
      */
     @Override
-    public OrgDto authOrganization(Map<String, Object> params) throws SystemException {
+    public OrgDto authOrganization(Map<String, Object> params) throws SysException {
         // extract params of organization
         String referenceId = (String) params.get("reference_id");
         String password = (String) params.get("password");
@@ -159,10 +158,10 @@ public class AuthServiceImpl implements AuthService {
      * extract roles
      * @param userType
      */
-    private <T> Set<RoleDto> extractRoles(T userType) throws SystemException { // OrganizationRole  UserRole
+    private <T> Set<RoleDto> extractRoles(T userType) throws SysException { // OrganizationRole  UserRole
 
         if (!(userType instanceof User || userType instanceof Organization)) {
-            throw new SystemException("to extract roles you must send User OR Organization");
+            throw new SysException("to extract roles you must send User OR Organization", "#018");
         }
 
         if (userType instanceof User) {
