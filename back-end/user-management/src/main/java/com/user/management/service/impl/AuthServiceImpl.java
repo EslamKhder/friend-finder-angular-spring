@@ -157,16 +157,6 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * extract roles
-     * @param roles
-     */
-    private List<RoleDto> extractOrganizationRole(List<OrganizationRole> roles) {
-        return roles.stream().map(organizationRole ->
-                new RoleDto(organizationRole.getRole().getCode(),
-                        organizationRole.getRole().getDisplayName())).collect(Collectors.toList());
-    }
-
-    /**
-     * extract roles
      * @param userType
      */
     private <T> Set<RoleDto> extractRoles(T userType) throws SystemException { // OrganizationRole  UserRole
