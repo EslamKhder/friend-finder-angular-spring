@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
                 Scope.USER.value().equals(params.get("scope"))
             )
         ) {
-            throw new FieldException("error.scope.invalid","#015","scope");
+            throw new FieldException("error.scope.user.invalid","#015","scope");
         }
 
     }

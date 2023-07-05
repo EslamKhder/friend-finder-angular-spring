@@ -1,8 +1,5 @@
 package com.user.management.model.organization;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,15 +7,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.organizationrole.OrganizationRole;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Entity
 @Table(name = "organization")
 public class Organization extends BaseEntity {
@@ -37,5 +37,12 @@ public class Organization extends BaseEntity {
     private Scope scope;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "organization")
-    private List<OrganizationRole> roles;
+    private Set<OrganizationRole> roles = new HashSet();
+
+    public Organization(String referenceId, String organizationName, String password, Scope scope) {
+        this.referenceId = referenceId;
+        this.organizationName = organizationName;
+        this.password = password;
+        this.scope = scope;
+    }
 }
