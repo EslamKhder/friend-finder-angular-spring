@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,8 +28,17 @@ public class OrgDto {
     private String refreshToken;
 
     @JsonProperty("roles")
-    private Set<RoleDto> roles;
+    private Set<RoleDto> roles  = new HashSet();;
 
     @JsonProperty("scope")
     private Scope scope;
+
+    public OrgDto(Long orgId, String accessToken, String expireAt, String refreshToken, RoleDto role, Scope scope) {
+        this.orgId = orgId;
+        this.accessToken = accessToken;
+        this.expireAt = expireAt;
+        this.refreshToken = refreshToken;
+        this.scope = scope;
+        roles.add(role);
+    }
 }

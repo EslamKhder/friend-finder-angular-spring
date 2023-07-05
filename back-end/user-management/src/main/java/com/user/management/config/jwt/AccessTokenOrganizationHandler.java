@@ -36,6 +36,15 @@ public class AccessTokenOrganizationHandler extends TokenHandler<Organization> {
         return tokenBuilder.compact();
     }
 
+    /**
+     * get token Expire At
+     * @param token
+     * @return Date
+     */
+    public String getExpireAt(String token){
+        return parser.parseClaimsJws(token).getBody().getExpiration().toString();
+    }
+
     public String createRefreshToken(Organization organization) {
         return createToken(organization.getId().toString(), accessTokenTtl).compact();
     }

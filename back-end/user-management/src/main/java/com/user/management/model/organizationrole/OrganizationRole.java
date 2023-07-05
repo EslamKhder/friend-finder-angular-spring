@@ -1,7 +1,5 @@
 package com.user.management.model.organizationrole;
 
-import lombok.Data;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,8 +11,13 @@ import java.io.Serializable;
 import com.user.management.model.organization.Organization;
 import com.user.management.model.role.CompositeKey;
 import com.user.management.model.role.Role;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "organization_role")
 public class OrganizationRole implements Serializable {
@@ -31,4 +34,9 @@ public class OrganizationRole implements Serializable {
     @JoinColumn(name = "role_id")
     @MapsId("roleId")
     private Role role;
+
+    public OrganizationRole(Organization organization, Role role) {
+        this.organization = organization;
+        this.role = role;
+    }
 }

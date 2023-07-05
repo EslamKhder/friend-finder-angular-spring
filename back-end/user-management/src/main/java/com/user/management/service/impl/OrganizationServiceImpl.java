@@ -1,12 +1,20 @@
 package com.user.management.service.impl;
 
+import com.user.management.config.jwt.AccessTokenOrganizationHandler;
 import com.user.management.exceptions.BusinessException;
 import com.user.management.exceptions.FieldException;
+import com.user.management.exceptions.SysException;
+import com.user.management.model.dto.auth.OrgDto;
 import com.user.management.model.dto.auth.UserDto;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Language;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.organization.Organization;
+import com.user.management.model.organizationrole.OrganizationRole;
+import com.user.management.model.role.Role;
 import com.user.management.repository.organization.OrganizationRepository;
+import com.user.management.repository.organization.OrganizationRoleRepository;
+import com.user.management.repository.role.RoleRepository;
 import com.user.management.service.OrganizationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,9 +30,16 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private PasswordEncoder passwordEncoder;
 
+    private OrganizationRoleRepository organizationRoleRepository;
+
+    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
+
+    private RoleRepository roleRepository;
+
+    private final String ORGANIZATION_ROLE_CODE = "001";
 
     @Override
-    public UserDto create(Map<String, Object> params) {
+    public OrgDto create(Map<String, Object> params) {
         validateOrganizationFields(params);
 
         String referenceId = params.get("reference_id").toString();
@@ -41,7 +56,23 @@ public class OrganizationServiceImpl implements OrganizationService {
         Organization organizationCreation = new Organization(referenceId, organizationName, passwordEncoder.encode(password), scope);
 
         organizationCreation = organizationRepository.save(organizationCreation);
-        return null;
+
+        Optional<Role> role = roleRepository.findByCode(ORGANIZATION_ROLE_CODE);
+
+        if (!role.isPresent()) {
+            throw new SysException("role not exist", "#017");
+        }
+
+        OrganizationRole organizationRole = new OrganizationRole(organizationCreation, role.get());
+
+        // add ORGANIZATION ROLE to organization creation
+        organizationRoleRepository.save(organizationRole);
+
+        // create token
+        String token =  accessTokenOrganizationHandler.createToken(organizationCreation);
+
+        return new OrgDto(organizationCreation.getId(), token, accessTokenOrganizationHandler.getExpireAt(token),accessTokenOrganizationHandler.createRefreshToken(organizationCreation),
+                new RoleDto(role.get().getCode(), role.get().getDisplayName()), organizationCreation.getScope());
     }
 
     /**

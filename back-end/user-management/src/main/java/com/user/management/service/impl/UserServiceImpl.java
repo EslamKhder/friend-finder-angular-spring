@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     private RoleRepository roleRepository;
+
     private UserRoleRepository userRoleRepository;
 
     private AccessTokenUserHandler accessTokenUserHandler;

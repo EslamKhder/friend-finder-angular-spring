@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     @JsonProperty("user_id")
     private Long userId;
@@ -29,23 +30,11 @@ public class UserDto {
     private Language language;
     private Scope scope;
 
-    public UserDto(Long userId, String accessToken, String expireAt, String refreshToken, Set<RoleDto> roles, boolean admin, Language language, Scope scope) {
-        this.userId = userId;
-        this.accessToken = accessToken;
-        this.expireAt = expireAt;
-        this.refreshToken = refreshToken;
-        this.roles = roles;
-        this.admin = admin;
-        this.language = language;
-        this.scope = scope;
-    }
-
     public UserDto(Long userId, String accessToken, String expireAt, String refreshToken, RoleDto roleDto, boolean admin, Language language, Scope scope) {
         this.userId = userId;
         this.accessToken = accessToken;
         this.expireAt = expireAt;
         this.refreshToken = refreshToken;
-        this.roles = roles;
         this.admin = admin;
         this.language = language;
         this.scope = scope;
