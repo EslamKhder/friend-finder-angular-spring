@@ -1,11 +1,14 @@
 package com.user.management.model.role;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-@Data
+@Setter
+@Getter
 @Embeddable
 public class CompositeKey implements Serializable {
 

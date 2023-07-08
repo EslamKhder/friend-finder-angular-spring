@@ -2,8 +2,7 @@ package com.user.management.model.dto.auth;
 
 import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Language;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.enums.Scope;
-import lombok.NoArgsConstructor;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {

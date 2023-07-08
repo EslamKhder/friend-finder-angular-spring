@@ -16,8 +16,10 @@ import com.user.management.repository.organization.OrganizationRepository;
 import com.user.management.repository.organization.OrganizationRoleRepository;
 import com.user.management.repository.role.RoleRepository;
 import com.user.management.service.OrganizationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +40,17 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final String ORGANIZATION_ROLE_CODE = "001";
 
+    @Autowired
+    public OrganizationServiceImpl(OrganizationRepository organizationRepository, PasswordEncoder passwordEncoder, OrganizationRoleRepository organizationRoleRepository, AccessTokenOrganizationHandler accessTokenOrganizationHandler, RoleRepository roleRepository) {
+        this.organizationRepository = organizationRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.organizationRoleRepository = organizationRoleRepository;
+        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
+        this.roleRepository = roleRepository;
+    }
+
     @Override
+    @Transactional
     public OrgDto create(Map<String, Object> params) {
         validateOrganizationFields(params);
 

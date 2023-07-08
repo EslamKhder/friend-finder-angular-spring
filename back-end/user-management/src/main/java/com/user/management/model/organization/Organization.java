@@ -15,10 +15,12 @@ import com.user.management.model.BaseEntity;
 import com.user.management.model.enums.Scope;
 import com.user.management.model.organizationrole.OrganizationRole;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "organization")
 public class Organization extends BaseEntity {

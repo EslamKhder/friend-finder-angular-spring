@@ -13,9 +13,12 @@ import java.io.Serializable;
 import com.user.management.model.role.CompositeKey;
 import com.user.management.model.role.Role;
 import com.user.management.model.user.User;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @Entity
 @Table(name = "user_role")
 @NoArgsConstructor

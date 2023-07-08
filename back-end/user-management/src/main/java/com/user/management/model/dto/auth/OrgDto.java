@@ -3,15 +3,14 @@ package com.user.management.model.dto.auth;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.enums.Scope;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrgDto {

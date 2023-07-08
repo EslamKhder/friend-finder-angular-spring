@@ -23,7 +23,7 @@ import lombok.Setter;
 public class OrganizationRole implements Serializable {
 
     @EmbeddedId
-    private CompositeKey compositeKey;
+    private CompositeKey compositeKey = new CompositeKey();
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
