@@ -38,7 +38,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private RoleRepository roleRepository;
 
-    private final String ORGANIZATION_ROLE_CODE = "001";
+    private final String ORGANIZATION_ROLE_CODE = "DEFAULT_USER";
 
     @Autowired
     public OrganizationServiceImpl(OrganizationRepository organizationRepository, PasswordEncoder passwordEncoder, OrganizationRoleRepository organizationRoleRepository, AccessTokenOrganizationHandler accessTokenOrganizationHandler, RoleRepository roleRepository) {
