@@ -16,4 +16,5 @@
     <!-- Query -->
     <include file="classpath:db/changelog/query/2023_01_16_00_add_user_query.sql"/>
     <include file="classpath:db/changelog/query/2023_01_16_00_add_organization_query.sql"/>
+    <include file="classpath:db/changelog/query/2024_06_10_00_add_roles_query.sql"/>
 </databaseChangeLog>

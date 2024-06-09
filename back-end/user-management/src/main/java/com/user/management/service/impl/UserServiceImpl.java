@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     private PasswordEncoder passwordEncoder;
 
-    private final String USER_ROLE_CODE = "002";
+    private final String USER_ROLE_CODE = "DEFAULT_USER";
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserRoleRepository userRoleRepository, AccessTokenUserHandler accessTokenUserHandler, PasswordEncoder passwordEncoder) {
