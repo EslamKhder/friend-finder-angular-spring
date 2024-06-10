@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
@@ -22,8 +23,20 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        System.out.println("------->  filter start");
-        filterChain.doFilter(request, response);
+        final String authorizationHeader = request.getHeader("Authorization");
+
+        Optional<String> basicAuthorization =
+                Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Basic "));
+
+        if (basicAuthorization.isPresent()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        Optional<String> jwt =
+                Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Bearer "));
+
+
 
     }
 
