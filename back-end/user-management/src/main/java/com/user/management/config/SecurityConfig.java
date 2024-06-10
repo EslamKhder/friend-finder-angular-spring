@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String [] PUBLIC_APIS = {
+    public static final String [] PUBLIC_APIS = {
             "/swagger-ui/**",
             "/auth/**",
             "/organization/**",
@@ -33,7 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .anyRequest().authenticated()
                         .and().httpBasic();
     }
-
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
