@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,12 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private AuthenticationFilter authenticationFilter;
 
     public static final String [] PUBLIC_APIS = {
             "/swagger-ui/**",
@@ -31,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .and().csrf().disable().cors().and().authorizeRequests()
                         .antMatchers(PUBLIC_APIS).permitAll()
                         .anyRequest().authenticated()
-                        .and().httpBasic();
+                        .and().addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                        .httpBasic();
     }
 
     @Bean
