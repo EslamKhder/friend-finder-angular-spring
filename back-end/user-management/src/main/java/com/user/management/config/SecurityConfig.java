@@ -18,20 +18,19 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final Set<String> PUBLIC_APIS = new HashSet();
+    private static final String [] PUBLIC_APIS = {
+            "/swagger-ui/**",
+            "/auth/**",
+            "/organization/**",
+            "/user/**"
+    };
 
-    static {
-        PUBLIC_APIS.add("/swagger-ui/**");
-        PUBLIC_APIS.add("/student/**");
-        PUBLIC_APIS.add("/auth/**");
-        PUBLIC_APIS.add("/test/**");
-    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and().csrf().disable().cors().and().authorizeRequests()
-                        .antMatchers(String.valueOf(PUBLIC_APIS)).permitAll()
-                        .antMatchers("/test/**").authenticated()
+                        .antMatchers(PUBLIC_APIS).permitAll()
+                        .anyRequest().authenticated()
                         .and().httpBasic();
     }
 
