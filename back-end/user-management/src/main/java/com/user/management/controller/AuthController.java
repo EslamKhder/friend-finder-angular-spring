@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.user.management.exceptions.SysException;
 import com.user.management.model.dto.auth.OrgDto;
+import com.user.management.service.AuthService;
 import com.user.management.service.impl.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,10 @@ import com.user.management.model.dto.auth.UserDto;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private AuthServiceImpl authService;
+    private AuthService authService;
 
     @Autowired
-    public AuthController(AuthServiceImpl authService) {
+    public AuthController(AuthService authService) {
         this.authService = authService;
     }
 

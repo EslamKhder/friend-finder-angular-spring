@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getServletPath();
@@ -25,6 +26,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
         final String authorizationHeader = request.getHeader("Authorization");
 
+        // Authorization Header Type Basic AUTH
         Optional<String> basicAuthorization =
                 Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Basic "));
 
@@ -33,16 +35,22 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        // Authorization Header Type JWT Bearer Token
         Optional<String> jwt =
-                Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Bearer "));
+                Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Bearer "))
+                        .map(header -> header.substring(7));
 
 
 
     }
 
+    /**
+     * check Path
+     * @param path
+     * @param paths
+     * @return
+     */
     private Boolean checkPath(String path, String [] paths){
-
-        // /user/create
         String[] parts = path.split("/");
         String newPath = "/" + parts[1] + "/**";
 
