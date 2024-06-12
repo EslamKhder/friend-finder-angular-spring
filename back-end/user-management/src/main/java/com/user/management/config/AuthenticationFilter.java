@@ -4,6 +4,7 @@ import com.user.management.config.jwt.AccessTokenOrganizationHandler;
 import com.user.management.config.jwt.AccessTokenUserHandler;
 import com.user.management.model.dto.auth.OrgDto;
 import com.user.management.model.dto.auth.UserDto;
+import com.user.management.model.dto.role.RoleDto;
 import com.user.management.model.organization.Organization;
 import com.user.management.model.user.User;
 import com.user.management.service.AuthService;
@@ -62,46 +63,40 @@ public class AuthenticationFilter extends OncePerRequestFilter {
                 Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Bearer "))
                                 .map(header -> header.substring(7)).filter(accessTokenUserHandler::isValidToken);
 
-        if (jwt.isPresent()){
-            Optional<Object> auth = jwt.flatMap(authService::authByToken);
-            List<SimpleGrantedAuthority> simpleGrantedAuthorities;
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
-            if (auth.isPresent()) {
-                if (auth.get() instanceof UserDto){
-                    UserDto userDto = (UserDto) auth.get();
-
-
-                    simpleGrantedAuthorities = (userDto.getRoles() != null) ?
-                                    userDto.getRoles().stream()
-                                            .map(role -> new SimpleGrantedAuthority(role.getCode()))
-                                            .collect(Collectors.toList())
-                                    : Collections.emptyList();
-
-                    usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDto, null, simpleGrantedAuthorities);
-                } else if (auth.get() instanceof OrgDto) {
-                    OrgDto orgDto = (OrgDto) auth.get();
-
-                    simpleGrantedAuthorities =
-                            (orgDto.getRoles() != null) ?
-                                    orgDto.getRoles().stream()
-                                            .map(role -> new SimpleGrantedAuthority(role.getCode()))
-                                            .collect(Collectors.toList())
-                                    : Collections.emptyList();
-                    usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(orgDto, null, simpleGrantedAuthorities);
-
-                }
-
-                usernamePasswordAuthenticationToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                filterChain.doFilter(request, response);
-            } else  {
-
-            }
+        if (!jwt.isPresent()){
+            response.reset();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
+        Optional<Object> auth = jwt.flatMap(authService::authByToken);
+
+        if (!auth.isPresent()) {
+            response.reset();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
+        if (auth.get() instanceof UserDto){
+            UserDto userDto = (UserDto) auth.get();
+
+            usernamePasswordAuthenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDto, null, extractRoles(userDto.getRoles()));
+        } else if (auth.get() instanceof OrgDto) {
+            OrgDto orgDto = (OrgDto) auth.get();
+
+            usernamePasswordAuthenticationToken =
+                    new UsernamePasswordAuthenticationToken(orgDto, null, extractRoles(orgDto.getRoles()));
+
+        }
+
+        usernamePasswordAuthenticationToken.setDetails(
+                new WebAuthenticationDetailsSource().buildDetails(request)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        filterChain.doFilter(request, response);
     }
 
     /**
@@ -115,5 +110,18 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         String newPath = "/" + parts[1] + "/**";
 
         return Arrays.asList(paths).contains(newPath);
+    }
+
+    /**
+     * extract Roles
+     * @param roles
+     * @return
+     */
+    private List<SimpleGrantedAuthority> extractRoles(Set<RoleDto> roles){
+        return  (roles != null) ?
+                roles.stream()
+                        .map(role -> new SimpleGrantedAuthority(role.getCode()))
+                        .collect(Collectors.toList())
+                : Collections.emptyList();
     }
 }
