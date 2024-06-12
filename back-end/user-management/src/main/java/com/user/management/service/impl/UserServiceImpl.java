@@ -27,14 +27,19 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
     private UserRoleRepository userRoleRepository;
 
+    @Autowired
     private AccessTokenUserHandler accessTokenUserHandler;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private final String USER_ROLE_CODE = "DEFAULT_USER";

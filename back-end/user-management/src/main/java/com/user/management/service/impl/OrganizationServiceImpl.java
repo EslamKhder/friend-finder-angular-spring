@@ -28,26 +28,24 @@ import java.util.Optional;
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
+    @Autowired
     private OrganizationRepository organizationRepository;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private OrganizationRoleRepository organizationRoleRepository;
 
+    @Autowired
     private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
 
+    @Autowired
     private RoleRepository roleRepository;
 
     private final String ORGANIZATION_ROLE_CODE = "DEFAULT_USER";
 
-    @Autowired
-    public OrganizationServiceImpl(OrganizationRepository organizationRepository, PasswordEncoder passwordEncoder, OrganizationRoleRepository organizationRoleRepository, AccessTokenOrganizationHandler accessTokenOrganizationHandler, RoleRepository roleRepository) {
-        this.organizationRepository = organizationRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.organizationRoleRepository = organizationRoleRepository;
-        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
-        this.roleRepository = roleRepository;
-    }
+
 
     @Override
     @Transactional

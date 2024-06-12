@@ -15,12 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
-
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @PostMapping("/create")
     public ResponseEntity<UserDto> create(@RequestBody Map<String, Object> params) throws SysException {

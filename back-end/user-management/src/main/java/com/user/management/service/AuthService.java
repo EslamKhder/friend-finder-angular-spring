@@ -24,5 +24,11 @@ public interface AuthService {
      */
     OrgDto authOrganization(Map<String, Object> params);
 
+    /**
+     * auth By Token
+     * @param token
+     * @return
+     * @param <T>
+     */
     <T> Optional<T> authByToken(String token);
 }

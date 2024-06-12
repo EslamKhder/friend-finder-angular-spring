@@ -25,24 +25,19 @@ import java.util.stream.Collectors;
 @Service
 public class AuthServiceImpl implements AuthService {
 
+    @Autowired
     private UserRepository userRepository;
-
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private OrganizationRepository organizationRepository;
 
+    @Autowired
     private AccessTokenUserHandler accessTokenUserHandler;
 
-    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
-
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, OrganizationRepository organizationRepository, AccessTokenUserHandler accessTokenUserHandler, AccessTokenOrganizationHandler accessTokenOrganizationHandler) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.organizationRepository = organizationRepository;
-        this.accessTokenUserHandler = accessTokenUserHandler;
-        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
-    }
+    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
 
     /**
      * login with user
@@ -91,19 +86,25 @@ public class AuthServiceImpl implements AuthService {
         return new OrgDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
     }
 
+    /**
+     * auth By Token
+     * @param token
+     * @return
+     * @param <T>
+     */
     @Override
     public <T> Optional<T> authByToken(String token) {
         String scope = accessTokenUserHandler.getScope(token);
-
+        Long id;
         if (Scope.USER.value().equals(scope)) {
-            Long id  = Long.parseLong(accessTokenUserHandler.getSubject(token));
+            id = Long.parseLong(accessTokenUserHandler.getSubject(token));
             Optional<User> user = userRepository.findById(id);
             if (user.isPresent()) {
                 User existedUser = user.get();
                 return (Optional<T>) Optional.of(new UserDto(existedUser.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(existedUser), extractRoles(existedUser), existedUser.isAdmin(), existedUser.getLanguage(), existedUser.getScope()));
             }
         } else if (Scope.ORGANIZATION.value().equals(scope)) {
-            Long id  = Long.parseLong(accessTokenOrganizationHandler.getSubject(token));
+            id = Long.parseLong(accessTokenOrganizationHandler.getSubject(token));
             Optional<Organization> organization = organizationRepository.findById(id);
             if (organization.isPresent()) {
                 Organization existedOrganization = organization.get();
@@ -111,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
             }
         }
 
-        throw new SysException("Scope out Of (USER, ORGANIZATION)", "#021");
+        return Optional.empty();
     }
 
     /**

@@ -20,12 +20,8 @@ import java.util.Map;
 @RequestMapping("/organization")
 public class OrganizationController {
 
-    private OrganizationService organizationService;
-
     @Autowired
-    public OrganizationController(OrganizationService organizationService) {
-        this.organizationService = organizationService;
-    }
+    private OrganizationService organizationService;
 
     @PostMapping("/create")
     public ResponseEntity<OrgDto> create(@RequestBody Map<String, Object> params) throws SysException {

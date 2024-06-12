@@ -19,12 +19,8 @@ import com.user.management.model.dto.auth.UserDto;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private AuthService authService;
-
     @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+    private AuthService authService;
 
     @GetMapping("/login/user")
     public ResponseEntity<UserDto> loginUser(@RequestBody Map<String, Object> params) throws SysException {
