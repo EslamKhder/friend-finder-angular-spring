@@ -1,5 +1,8 @@
 package com.user.management.config;
 
+import com.user.management.config.jwt.AccessTokenOrganizationHandler;
+import com.user.management.config.jwt.AccessTokenUserHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -13,6 +16,16 @@ import java.util.Optional;
 
 @Component
 public class AuthenticationFilter extends OncePerRequestFilter {
+
+    private AccessTokenUserHandler accessTokenUserHandler;
+
+    private AccessTokenOrganizationHandler accessTokenOrganizationHandler;
+
+    @Autowired
+    public AuthenticationFilter(AccessTokenUserHandler accessTokenUserHandler, AccessTokenOrganizationHandler accessTokenOrganizationHandler) {
+        this.accessTokenUserHandler = accessTokenUserHandler;
+        this.accessTokenOrganizationHandler = accessTokenOrganizationHandler;
+    }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -38,9 +51,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         // Authorization Header Type JWT Bearer Token
         Optional<String> jwt =
                 Optional.ofNullable(authorizationHeader).filter(header -> header.startsWith("Bearer "))
-                        .map(header -> header.substring(7));
+                                .map(header -> header.substring(7)).filter(accessTokenUserHandler::isValidToken);
 
+        if (jwt.isPresent()){
 
+        }
 
     }
 

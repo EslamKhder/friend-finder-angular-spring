@@ -5,6 +5,7 @@ import com.user.management.model.dto.auth.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public interface AuthService {
@@ -22,4 +23,6 @@ public interface AuthService {
      * @return OrgAuthDto
      */
     OrgDto authOrganization(Map<String, Object> params);
+
+    <T> Optional<T> authByToken(String token);
 }

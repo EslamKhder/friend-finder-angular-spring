@@ -91,6 +91,17 @@ public abstract class TokenHandler<A> {
     }
 
     /**
+     * get Scope of token
+     * @param token
+     * @return scope
+     */
+    public String getScope(String token) {
+        return parser
+                .parseClaimsJws(token)
+                .getBody()
+                .get("scope").toString();
+    }
+    /**
      * create custom token
      * @param Param
      * @return token

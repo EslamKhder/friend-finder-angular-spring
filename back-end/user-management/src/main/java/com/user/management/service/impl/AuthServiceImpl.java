@@ -9,6 +9,7 @@ import com.user.management.exceptions.SysException;
 import com.user.management.model.dto.auth.OrgDto;
 import com.user.management.model.dto.auth.UserDto;
 import com.user.management.model.dto.role.RoleDto;
+import com.user.management.model.enums.Scope;
 import com.user.management.model.organization.Organization;
 import com.user.management.model.user.User;
 import com.user.management.repository.organization.OrganizationRepository;
@@ -88,6 +89,29 @@ public class AuthServiceImpl implements AuthService {
         String token =  accessTokenOrganizationHandler.createToken(organization);
 
         return new OrgDto(organization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(organization), extractRoles(organization), organization.getScope());
+    }
+
+    @Override
+    public <T> Optional<T> authByToken(String token) {
+        String scope = accessTokenUserHandler.getScope(token);
+
+        if (Scope.USER.value().equals(scope)) {
+            Long id  = Long.parseLong(accessTokenUserHandler.getSubject(token));
+            Optional<User> user = userRepository.findById(id);
+            if (user.isPresent()) {
+                User existedUser = user.get();
+                return (Optional<T>) Optional.of(new UserDto(existedUser.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(existedUser), extractRoles(existedUser), existedUser.isAdmin(), existedUser.getLanguage(), existedUser.getScope()));
+            }
+        } else if (Scope.ORGANIZATION.value().equals(scope)) {
+            Long id  = Long.parseLong(accessTokenOrganizationHandler.getSubject(token));
+            Optional<Organization> organization = organizationRepository.findById(id);
+            if (organization.isPresent()) {
+                Organization existedOrganization = organization.get();
+                return (Optional<T>) Optional.of(new OrgDto(existedOrganization.getId(), token, accessTokenOrganizationHandler.getExpireAt(token), accessTokenOrganizationHandler.createRefreshToken(existedOrganization), extractRoles(existedOrganization), existedOrganization.getScope()));
+            }
+        }
+
+        throw new SysException("Scope out Of (USER, ORGANIZATION)", "#021");
     }
 
     /**
