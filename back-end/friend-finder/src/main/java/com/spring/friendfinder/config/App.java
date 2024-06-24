@@ -1,4 +1,4 @@
-package com.spring.friendfinder.model.model.config;
+package com.spring.friendfinder.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

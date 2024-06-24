@@ -1,4 +1,4 @@
-package com.spring.friendfinder.model.model;
+package com.spring.friendfinder.model;
 
 
 

@@ -1,7 +1,7 @@
-package com.spring.friendfinder.model.model;
+package com.spring.friendfinder.model;
 
 
-import com.spring.friendfinder.model.model.enums.Gender;
+import com.spring.friendfinder.enums.Gender;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,4 +1,4 @@
-package com.spring.friendfinder.model.model.enums;
+package com.spring.friendfinder.enums;
 
 public enum Gender {
     MALE,FEMALE

@@ -1,5 +1,4 @@
-package com.spring.friendfinder.model.model;
-
+package com.spring.friendfinder.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
