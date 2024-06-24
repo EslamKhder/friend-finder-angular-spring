@@ -6,3 +6,9 @@ spring:
 
 server:
   port: 9092
+
+zuul:
+  routes:
+    user-management:
+      path: /user-api/**
+      url: http://localhost:9095/

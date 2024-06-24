@@ -1,25 +1,35 @@
 spring:
   application:
-    name: friend-finder-service
+    name: ${SPRING.APP.NAME:friend-finder-service}
   banner:
-    location: classpath:/banners/banner.txt
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/frindfinder-system?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&serverTimezone=UTC
-    username: eslam
-    password: eslam
-  jpa:
-    properties:
-      hibernate:
-        hbm2ddl:
-          auto: update
-        dialect: org.hibernate.dialect.MySQL5Dialect
+    location: ${SPRING.BANNER:classpath:/banners/banner.txt}
+  security:
+    user:
+      name: eslam
+      password: eslam
+  messages:
+    basename: i18n/messages
+    local-default:
 server:
-  port: 8081
+  port: ${SERVER.PORT:9090}
 
-#
-# JDBC properties
-#
+# ===============================
+# = SPRING DATABASE
+# ===============================
+datasource:
+  driverClassName: ${DATASOURCE.DRIVER.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
+  databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=friend-finder;characterEncoding=UTF-8;encrypt=false}
+  databaseUser: ${DATASOURCE.USER.NAME:sasa}
+  databasePassword: ${DATASOURCE.USER.PASSWORD:sasasasa}
+  platform: ${DATASOURCE.PLATFORM:org.hibernate.dialect.SQLServer2012Dialect}
 
-# Hibernate options
-
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+jpa:
+  showSql: ${JPA.SHOW_SQL:true}
+  hibernate:
+    hibernateDDLAuto: ${JPA.HIBERNATE.DDL.AUTO:none}
+    hibernateDialect: ${JPA.HIBERNATE.DIALECT:org.hibernate.dialect.SQLServer2012Dialect}
+    create_empty_composites:
+      enabled: ${JPA.HIBERNATE.EMPTY.COMPOSITES:true}
