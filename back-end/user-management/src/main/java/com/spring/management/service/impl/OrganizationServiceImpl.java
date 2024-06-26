@@ -6,7 +6,7 @@ import com.spring.commonlib.exceptions.SysException;
 import com.spring.management.config.jwt.AccessTokenOrganizationHandler;
 import com.spring.management.model.dto.auth.OrgDto;
 import com.spring.management.model.dto.role.RoleDto;
-import com.spring.management.model.enums.Scope;
+import com.spring.commonlib.model.enums.Scope;
 import com.spring.management.model.organization.Organization;
 import com.spring.management.model.organizationrole.OrganizationRole;
 import com.spring.management.repository.role.RoleRepository;

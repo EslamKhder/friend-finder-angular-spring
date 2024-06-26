@@ -1,14 +1,14 @@
 package com.spring.management.model.dto.auth;
 
 import com.spring.management.model.dto.role.RoleDto;
-import com.spring.management.model.enums.Language;
+import com.spring.commonlib.model.enums.Language;
 import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.spring.management.model.enums.Scope;
+import com.spring.commonlib.model.enums.Scope;
 
 @Setter
 @Getter

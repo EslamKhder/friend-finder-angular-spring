@@ -2,7 +2,7 @@ package com.spring.management.model.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spring.management.model.dto.role.RoleDto;
-import com.spring.management.model.enums.Scope;
+import com.spring.commonlib.model.enums.Scope;
 import lombok.*;
 
 import java.util.HashSet;

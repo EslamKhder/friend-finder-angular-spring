@@ -10,9 +10,9 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.spring.management.model.BaseEntity;
+import com.spring.commonlib.model.BaseEntity;
 import com.spring.management.model.organizationrole.OrganizationRole;
-import com.spring.management.model.enums.Scope;
+import com.spring.commonlib.model.enums.Scope;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

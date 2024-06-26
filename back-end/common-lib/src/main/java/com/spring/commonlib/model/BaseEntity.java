@@ -1,4 +1,4 @@
-package com.spring.management.model;
+package com.spring.commonlib.model;
 
 import com.spring.commonlib.config.audit.EntityAuditingEventListener;
 import lombok.*;

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.spring.management.model.BaseEntity;
+import com.spring.commonlib.model.BaseEntity;
 import com.spring.management.model.userrole.UserRole;
 import lombok.Getter;
 import lombok.Setter;

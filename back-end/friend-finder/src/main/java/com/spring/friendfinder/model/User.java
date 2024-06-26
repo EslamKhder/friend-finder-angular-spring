@@ -1,6 +1,8 @@
 package com.spring.friendfinder.model;
 
 
+import com.spring.commonlib.model.BaseEntity;
+import com.spring.commonlib.model.enums.Scope;
 import com.spring.friendfinder.enums.Gender;
 import lombok.*;
 
@@ -15,24 +17,12 @@ import java.util.List;
 @Entity(name = "user")
 public class User extends BaseEntity {
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "user_id", unique = true)
+    private Long userId;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "age")
-    private String age;
-
-    @Column(name = "phone")
-    private String phone;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date")
-    private Date date;
-
+    @Column(name = "scope")
     @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private Scope scope;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts;

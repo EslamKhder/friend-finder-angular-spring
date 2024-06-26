@@ -1,4 +1,4 @@
-package com.spring.management.model.enums;
+package com.spring.commonlib.model.enums;
 
 public enum Scope {
     USER("USER"),

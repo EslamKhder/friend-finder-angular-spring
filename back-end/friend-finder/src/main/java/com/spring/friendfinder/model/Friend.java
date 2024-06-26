@@ -1,4 +1,5 @@
 package com.spring.friendfinder.model;
+import com.spring.commonlib.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

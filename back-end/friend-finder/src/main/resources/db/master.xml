@@ -5,15 +5,4 @@
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <!-- Entity -->
-    <include file="classpath:db/changelog/entity/2022_11_29_00_create_user_entity.sql"/>
-    <include file="classpath:db/changelog/entity/2022_11_29_01_create_role_entity.sql"/>
-    <include file="classpath:db/changelog/entity/2022_11_29_02_create_organization_entity.sql"/>
-    <include file="classpath:db/changelog/entity/2022_11_29_03_create_user_role_entity.sql"/>
-    <include file="classpath:db/changelog/entity/2023_01_16_04_create_organization_role_entity.sql"/>
-
-    <!-- Query -->
-    <include file="classpath:db/changelog/query/2023_01_16_00_add_user_query.sql"/>
-    <include file="classpath:db/changelog/query/2023_01_16_00_add_organization_query.sql"/>
-    <include file="classpath:db/changelog/query/2024_06_10_00_add_roles_query.sql"/>
-</databaseChangeLog>
+    </databaseChangeLog>

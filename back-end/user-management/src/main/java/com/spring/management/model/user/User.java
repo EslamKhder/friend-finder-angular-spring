@@ -1,8 +1,8 @@
 package com.spring.management.model.user;
 
-import com.spring.management.model.BaseEntity;
-import com.spring.management.model.enums.Language;
-import com.spring.management.model.enums.Scope;
+import com.spring.commonlib.model.BaseEntity;
+import com.spring.commonlib.model.enums.Language;
+import com.spring.commonlib.model.enums.Scope;
 import com.spring.management.model.userrole.UserRole;
 import lombok.*;
 
