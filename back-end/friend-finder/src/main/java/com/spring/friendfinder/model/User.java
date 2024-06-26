@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "user")
+@Entity(name = "User_System")
 public class User extends BaseEntity {
 
     @Column(name = "user_id", unique = true)

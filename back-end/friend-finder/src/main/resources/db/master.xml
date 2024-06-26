@@ -5,4 +5,9 @@
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    </databaseChangeLog>
+
+    <!-- Entity -->
+    <include file="classpath:db/changelog/entity/2024_06_27_00_create_user_entity.sql"/>
+    <include file="classpath:db/changelog/entity/2024_06_27_00_create_post_entity.sql"/>
+
+</databaseChangeLog>

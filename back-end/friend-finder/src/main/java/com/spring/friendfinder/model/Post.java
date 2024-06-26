@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "posts")
+@Entity(name = "Post")
 public class Post extends BaseEntity {
 
 
@@ -22,7 +22,7 @@ public class Post extends BaseEntity {
     private String text;
 
     @Column(name = "likes")
-    private int like;
+    private int likes;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
