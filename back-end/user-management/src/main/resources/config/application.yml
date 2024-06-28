@@ -18,7 +18,7 @@ server:
 # ===============================
 datasource:
   driverClassName: ${DATASOURCE.DRIVER.NAME:com.microsoft.sqlserver.jdbc.SQLServerDriver}
-  databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=ff_user_management;characterEncoding=UTF-8;encrypt=false}
+  databaseUrl: ${DATASOURCE.DATABASE.URL:jdbc:sqlserver://localhost;DatabaseName=user_management;characterEncoding=UTF-8;encrypt=false}
   databaseUser: ${DATASOURCE.USER.NAME:SASA}
   databasePassword: ${DATASOURCE.USER.PASSWORD:SASASASA}
   platform: ${DATASOURCE.PLATFORM:org.hibernate.dialect.SQLServer2012Dialect}

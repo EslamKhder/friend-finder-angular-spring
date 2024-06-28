@@ -6,9 +6,9 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!-- Entity -->
-    <include file="classpath:db/changelog/entity/entities.xml"/>
+    <changeSet id="2024_06_10_00_add_roles_query" author="Eslam Khder" runOnChange="true">
+        <sqlFile dbms="mssql" encoding="utf8"
+                 path="classpath:db/changelog/query/sql/2024_06_10_00_add_roles_query.sql"/>
+    </changeSet>
 
-    <!-- Query -->
-    <include file="classpath:db/changelog/query/queries.xml"/>
 </databaseChangeLog>
