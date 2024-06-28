@@ -7,7 +7,9 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!-- Entity -->
-    <include file="classpath:db/changelog/entity/2024_06_27_00_create_user_entity.sql"/>
-    <include file="classpath:db/changelog/entity/2024_06_27_00_create_post_entity.sql"/>
+    <include file="classpath:db/changelog/entity/entities.xml"/>
+
+    <!-- Query -->
+    <include file="classpath:db/changelog/query/queries.xml"/>
 
 </databaseChangeLog>

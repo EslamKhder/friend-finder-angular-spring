@@ -6,10 +6,13 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!-- Query -->
-    <changeSet id="2024_06_10_00_add_roles_query" author="Eslam Khder" runOnChange="true">
+    <changeSet id="2024_06_27_00_create_user_entity" author="Eslam Khder" runOnChange="true">
         <sqlFile dbms="mssql" encoding="utf8"
-                 path="classpath:db/changelog/query/sql/2024_06_10_00_add_roles_query.sql"/>
+                 path="classpath:db/changelog/entity/sql/2024_06_27_00_create_user_entity.sql"/>
     </changeSet>
 
+    <changeSet id="2024_06_27_00_create_post_entity" author="Eslam Khder" runOnChange="true">
+        <sqlFile dbms="mssql" encoding="utf8"
+                 path="classpath:db/changelog/entity/sql/2024_06_27_00_create_post_entity.sql"/>
+    </changeSet>
 </databaseChangeLog>

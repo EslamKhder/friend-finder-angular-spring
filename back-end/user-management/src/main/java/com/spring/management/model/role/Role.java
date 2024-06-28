@@ -1,9 +1,6 @@
 package com.spring.management.model.role;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +15,7 @@ import lombok.Setter;
 @Table(name = "role")
 public class Role extends BaseEntity {
 
+    @Column(unique = true)
     private String code;
 
     private String displayName;
