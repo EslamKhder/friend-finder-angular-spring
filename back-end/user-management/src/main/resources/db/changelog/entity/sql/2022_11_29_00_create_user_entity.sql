@@ -10,6 +10,6 @@ CREATE TABLE user_system (
     mobile_phone varchar(255),
     admin bit not null DEFAULT 0,
     language VARCHAR(10) NOT NULL CHECK (language IN('ARABIC','ENGLISH')),
-    scope VARCHAR(10) NOT NULL CHECK (scope IN('USER','ORGANIZATION')),
+    scope VARCHAR(10) NOT NULL CHECK (scope IN('USER')),
     primary key (id)
 )

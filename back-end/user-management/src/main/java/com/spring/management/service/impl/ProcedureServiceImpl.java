@@ -11,6 +11,11 @@ public class ProcedureServiceImpl implements ProcedureService {
     @Autowired
     private ProcedureRepository procedureRepository;
 
+    /**
+     * add User To Friend Finder
+     * @param userId
+     * @param scope
+     */
     @Override
     public void addUserToFriendFinder(Long userId, String scope) {
         procedureRepository.addUserToFriendFinder(userId, scope);

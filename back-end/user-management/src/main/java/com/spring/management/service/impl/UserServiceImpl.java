@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), new RoleDto(role.get().getCode(), role.get().getDisplayName()), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
 
+        // call procedure to add user to friend finder
         procedureService.addUserToFriendFinder(userDto.getUserId(), userDto.getScope().value());
 
         return userDto;

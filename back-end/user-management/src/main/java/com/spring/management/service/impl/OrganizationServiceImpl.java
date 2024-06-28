@@ -47,8 +47,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private final String ORGANIZATION_ROLE_CODE = "DEFAULT_USER";
 
-
-
     @Override
     @Transactional
     public OrgDto create(Map<String, Object> params) {
@@ -86,6 +84,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         OrgDto orgDto =  new OrgDto(organizationCreation.getId(), token, accessTokenOrganizationHandler.getExpireAt(token),accessTokenOrganizationHandler.createRefreshToken(organizationCreation),
                 new RoleDto(role.get().getCode(), role.get().getDisplayName()), organizationCreation.getScope());
 
+        // call procedure to add user to friend finder
         procedureService.addUserToFriendFinder(orgDto.getOrgId(), orgDto.getScope().value());
 
         return orgDto;

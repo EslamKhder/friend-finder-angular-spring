@@ -3,7 +3,7 @@ CREATE TABLE User_System (
     active BIT,
     created_time datetime2(7) null,
     modified_time datetime2(7) null,
-    scope VARCHAR(10) NOT NULL CHECK (scope IN('USER','ORGANIZATION')),
+    scope VARCHAR(20) NOT NULL CHECK (scope IN('USER','ORGANIZATION')),
     user_id bigint not null UNIQUE,
     primary key (id)
 )
