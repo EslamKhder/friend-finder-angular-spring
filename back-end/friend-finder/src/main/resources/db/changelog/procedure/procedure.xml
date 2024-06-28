@@ -6,13 +6,8 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <!-- Entity -->
-    <include file="classpath:db/changelog/entity/entities.xml"/>
-
-    <!-- Query -->
-    <include file="classpath:db/changelog/query/queries.xml"/>
-
-    <!-- Procedure -->
-    <include file="classpath:db/changelog/procedure/procedure.xml"/>
-
+    <changeSet id="2024_06_28_00_ADD_USER_OR_ORG_FROM_USER_MANAGEMENT" author="Eslam Khder" runOnChange="true">
+        <sqlFile dbms="mssql" encoding="utf8"
+                 path="classpath:db/changelog/procedure/sql/2024_06_28_00_ADD_USER_OR_ORG_FROM_USER_MANAGEMENT.sql"/>
+    </changeSet>
 </databaseChangeLog>
