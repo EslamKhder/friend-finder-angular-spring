@@ -9,6 +9,7 @@ import com.spring.management.model.dto.role.RoleDto;
 import com.spring.commonlib.model.enums.Scope;
 import com.spring.management.model.userrole.UserRole;
 import com.spring.management.repository.role.RoleRepository;
+import com.spring.management.service.ProcedureService;
 import com.spring.management.service.UserService;
 import com.spring.commonlib.model.enums.Language;
 import com.spring.management.model.role.Role;
@@ -41,6 +42,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private ProcedureService procedureService;
 
     private final String USER_ROLE_CODE = "DEFAULT_USER";
 
@@ -96,7 +100,11 @@ public class UserServiceImpl implements UserService {
         // create token
         String token =  accessTokenUserHandler.createToken(userCreation);
 
-        return new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), new RoleDto(role.get().getCode(), role.get().getDisplayName()), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
+        UserDto userDto = new UserDto(userCreation.getId(), token, accessTokenUserHandler.getExpireAt(token), accessTokenUserHandler.createRefreshToken(userCreation), new RoleDto(role.get().getCode(), role.get().getDisplayName()), userCreation.isAdmin(), userCreation.getLanguage(), userCreation.getScope());
+
+        procedureService.addUserToFriendFinder(userDto.getUserId(), userDto.getScope().value());
+
+        return userDto;
     }
 
     /**

@@ -14,6 +14,7 @@ import com.spring.management.service.OrganizationService;
 import com.spring.management.model.role.Role;
 import com.spring.management.repository.organization.OrganizationRepository;
 import com.spring.management.repository.organization.OrganizationRoleRepository;
+import com.spring.management.service.ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private ProcedureService procedureService;
 
     private final String ORGANIZATION_ROLE_CODE = "DEFAULT_USER";
 
@@ -79,8 +83,12 @@ public class OrganizationServiceImpl implements OrganizationService {
         // create token
         String token =  accessTokenOrganizationHandler.createToken(organizationCreation);
 
-        return new OrgDto(organizationCreation.getId(), token, accessTokenOrganizationHandler.getExpireAt(token),accessTokenOrganizationHandler.createRefreshToken(organizationCreation),
+        OrgDto orgDto =  new OrgDto(organizationCreation.getId(), token, accessTokenOrganizationHandler.getExpireAt(token),accessTokenOrganizationHandler.createRefreshToken(organizationCreation),
                 new RoleDto(role.get().getCode(), role.get().getDisplayName()), organizationCreation.getScope());
+
+        procedureService.addUserToFriendFinder(orgDto.getOrgId(), orgDto.getScope().value());
+
+        return orgDto;
     }
 
     /**
